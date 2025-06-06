@@ -83,7 +83,7 @@
   }
   
   html {
-    background-color: white;
+    background-color: white !important;
     overscroll-behavior: none;
   }
   
@@ -94,7 +94,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    background-color: white;
+    background-color: white !important;
     overscroll-behavior: none;
   }
 
@@ -154,6 +154,98 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+  }
+
+  /* Mobile-specific optimizations - maintain desktop appearance */
+  @media screen and (max-width: 768px) {
+    /* Ensure consistent white backgrounds on mobile */
+    body, html {
+      background-color: #ffffff !important;
+    }
+    
+    /* Prevent any yellow backgrounds from appearing */
+    .bg-yellow-50, .bg-amber-50, .bg-yellow-100, .bg-amber-100 {
+      background-color: #ffffff !important;
+    }
+    
+    /* Ensure cards maintain white backgrounds */
+    .bg-white, .bg-card {
+      background-color: #ffffff !important;
+    }
+    
+    /* Maintain consistent text colors */
+    .text-gray-600, .text-slate-600, .text-neutral-600 {
+      color: #475569 !important;
+    }
+    
+    /* Touch-friendly button sizing while maintaining appearance */
+    .btn-luxury {
+      min-height: 44px;
+      padding: 12px 24px;
+    }
+    
+    /* Optimize font sizes for mobile readability while keeping hierarchy */
+    h1 {
+      @apply text-4xl font-semibold tracking-tight;
+    }
+    
+    h2 {
+      @apply text-3xl font-semibold;
+    }
+    
+    /* Ensure proper spacing on mobile */
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    /* Mobile-optimized animations */
+    .animate-fade-in-up,
+    .animate-fade-in-left,
+    .animate-fade-in-right,
+    .animate-fade-in {
+      animation-duration: 0.6s;
+    }
+    
+    /* Mobile grid optimizations */
+    .grid-cols-3 {
+      @apply grid-cols-1 gap-4;
+    }
+    
+    /* FAQ mobile optimization */
+    .lg\\:grid-cols-2 {
+      @apply grid-cols-1;
+    }
+    
+    /* Portfolio mobile optimization */
+    .lg\\:grid-cols-2 .lg\\:order-2 {
+      @apply order-1;
+    }
+    
+    /* Stats section mobile optimization */
+    .md\\:grid-cols-2 {
+      @apply grid-cols-1 gap-8;
+    }
+
+    /* Fixed elements mobile positioning */
+    .fixed.bottom-6.right-6 {
+      @apply bottom-4 right-4;
+    }
+    
+    .fixed.right-8 {
+      @apply right-4;
+    }
+    
+    .fixed.bottom-8 {
+      @apply bottom-20;
+    }
+  }
+  
+  /* Touch target optimization for all devices */
+  .touch-target {
+    min-width: 44px;
+    min-height: 44px;
+    @apply flex items-center justify-center;
   }
 }
 
@@ -250,6 +342,31 @@
   .bg-gradient-gold {
     background: linear-gradient(135deg, hsl(var(--luxury-gold)) 0%, #DAA520 100%);
   }
+
+  /* Mobile-specific component optimizations */
+  @media screen and (max-width: 768px) {
+    .card-luxury {
+      @apply p-6;
+    }
+    
+    .section-luxury {
+      @apply py-16;
+    }
+    
+    .container-luxury {
+      @apply px-4;
+    }
+    
+    /* Disable hover effects on mobile */
+    .luxury-hover:hover {
+      @apply scale-100 shadow-lg;
+      transform: none;
+    }
+    
+    .image-hover:hover {
+      @apply scale-100;
+    }
+  }
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -318,6 +435,17 @@
   }
 }
 
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes shimmer {
   0% {
     background-position: -200px 0;
@@ -346,6 +474,10 @@
 
 .animate-scale-in {
   animation: scaleIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-slide-in-down {
+  animation: slideInDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .animate-shimmer {
@@ -474,4 +606,36 @@
 
 .animate-slide-in-down {
   animation: slideInDown 0.5s ease-out forwards;
+}
+
+/* Text truncation utility */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mobile-specific utilities */
+@media screen and (max-width: 768px) {
+  /* Ensure touch targets are large enough */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  
+  /* Optimize scrolling */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Mobile navigation optimizations */
+  .fixed {
+    position: -webkit-sticky;
+    position: sticky;
+  }
 }

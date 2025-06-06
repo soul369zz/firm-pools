@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -30,7 +30,7 @@ export function Navigation() {
     }
   }, [lastScrollY])
 
-  // Close mobile menu when clicking outside
+  // Close mobile menu when clicking outside or on navigation
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (mobileMenuOpen) {
@@ -40,7 +40,12 @@ export function Navigation() {
 
     if (mobileMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside)
-      return () => document.removeEventListener('mousedown', handleClickOutside)
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden'
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+        document.body.style.overflow = 'unset'
+      }
     }
   }, [mobileMenuOpen])
 
@@ -53,6 +58,7 @@ export function Navigation() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+          {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="text-white font-bold text-xl">
               Firm Pools & Spa
@@ -65,15 +71,12 @@ export function Navigation() {
               <Link href="/" className="text-white hover:text-yellow-400 transition-colors">
                 Home
               </Link>
-
               <Link href="/services" className="text-white hover:text-yellow-400 transition-colors">
                 Pool Maintenance
               </Link>
-
               <Link href="/construction" className="text-white hover:text-yellow-400 transition-colors">
                 Construction & Renovation
               </Link>
-
               <Link href="/#reviews" className="text-white hover:text-yellow-400 transition-colors">
                 Reviews
               </Link>
@@ -86,14 +89,22 @@ export function Navigation() {
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center space-x-4">
-            <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300 text-sm px-4 py-2">
-              Get Quote
-            </Button>
+          {/* Mobile menu button - Optimized for touch */}
+          <div className="lg:hidden flex items-center space-x-2">
+            {/* Mobile Call Button */}
+            <a 
+              href="tel:+14167172750" 
+              className="p-2 bg-green-600 hover:bg-green-700 rounded-full transition-colors touch-target"
+              aria-label="Call us"
+            >
+              <Phone className="w-5 h-5 text-white" />
+            </a>
+            
+            {/* Hamburger Menu Button - Larger touch target */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-white hover:text-yellow-400 transition-colors"
+              className="p-2 text-white hover:text-yellow-400 transition-colors touch-target"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -101,61 +112,80 @@ export function Navigation() {
 
           {/* Desktop Get Quote Button */}
           <div className="hidden lg:block">
-            <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300">
-              Get Quote
-            </Button>
+            <a href="tel:+14167172750">
+              <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300">
+                Get Quote
+              </Button>
+            </a>
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
+        {/* Mobile Navigation Menu - Improved positioning and styling */}
         {mobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-white/10">
-            <div className="px-4 py-6 space-y-4">
-              <Link
-                href="/"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
+          <div className="lg:hidden fixed top-16 left-0 right-0 bottom-0 bg-black/95 backdrop-blur-md z-50 animate-slide-in-down">
+            <div className="flex flex-col h-full">
+              {/* Navigation Links */}
+              <div className="flex-1 px-6 py-8 space-y-6 overflow-y-auto">
+                <Link
+                  href="/"
+                  className="block text-white hover:text-yellow-400 transition-colors py-3 text-lg font-medium border-b border-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/services"
+                  className="block text-white hover:text-yellow-400 transition-colors py-3 text-lg font-medium border-b border-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Pool Maintenance
+                </Link>
+                <Link
+                  href="/construction"
+                  className="block text-white hover:text-yellow-400 transition-colors py-3 text-lg font-medium border-b border-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Construction & Renovation
+                </Link>
+                <Link
+                  href="/#reviews"
+                  className="block text-white hover:text-yellow-400 transition-colors py-3 text-lg font-medium border-b border-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Reviews
+                </Link>
+                <Link
+                  href="/#gallery"
+                  className="block text-white hover:text-yellow-400 transition-colors py-3 text-lg font-medium border-b border-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Our Work
+                </Link>
+                <Link
+                  href="/#faq"
+                  className="block text-white hover:text-yellow-400 transition-colors py-3 text-lg font-medium border-b border-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  FAQ
+                </Link>
+              </div>
 
-              <Link
-                href="/services"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Pool Maintenance
-              </Link>
-
-              <Link
-                href="/construction"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Construction & Renovation
-              </Link>
-
-              <Link
-                href="/#reviews"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Reviews
-              </Link>
-              <Link
-                href="/#gallery"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Our Work
-              </Link>
-              <Link
-                href="/#faq"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                FAQ
-              </Link>
+              {/* Bottom CTA Section */}
+              <div className="px-6 py-6 bg-black/80 border-t border-white/10">
+                <div className="space-y-4">
+                  <a 
+                    href="tel:+14167172750" 
+                    className="block w-full btn-luxury text-center py-4"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Call (416) 717-2750
+                  </a>
+                  <div className="text-center">
+                    <p className="text-white/80 text-sm">Available 7 days a week</p>
+                    <p className="text-yellow-400 text-sm font-medium">Free consultation & quotes</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
