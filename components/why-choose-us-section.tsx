@@ -57,16 +57,20 @@ export function WhyChooseUsSection() {
         {/* CTA Buttons */}
         <ScrollReveal animation="fadeInUp" delay={600}>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-            <Button size="lg" className="bg-blue-800 hover:bg-blue-900 text-white font-semibold px-8 py-4 text-lg">
-              BOOK A CALL TODAY
-            </Button>
-            <Button
-              variant="link"
-              size="lg"
-              className="text-blue-800 hover:text-blue-900 font-semibold text-lg underline decoration-2 underline-offset-4"
-            >
-              DISCOVER OUR SERVICES
-            </Button>
+            <a href="tel:+14167172750">
+              <Button size="lg" className="bg-blue-800 hover:bg-blue-900 text-white font-semibold px-8 py-4 text-lg">
+                BOOK A CALL TODAY
+              </Button>
+            </a>
+            <a href="/services">
+              <Button
+                variant="link"
+                size="lg"
+                className="text-blue-800 hover:text-blue-900 font-semibold text-lg underline decoration-2 underline-offset-4"
+              >
+                DISCOVER OUR SERVICES
+              </Button>
+            </a>
           </div>
         </ScrollReveal>
       </div>

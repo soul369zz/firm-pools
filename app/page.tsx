@@ -1,5 +1,8 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Navigation } from "@/components/navigation"
@@ -11,6 +14,7 @@ import { ServiceAreaMap } from "@/components/service-area-map"
 import { FinalCtaSection } from "@/components/final-cta-section"
 import { AnimatedCounter } from "@/components/animated-counter"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { FullGallery } from "@/components/full-gallery"
 
 import { Star, Phone, Mail, MapPin, Instagram, ChevronDown } from "lucide-react"
 import { SocialProofRail } from "@/components/social-proof-rail"
@@ -23,6 +27,8 @@ import {
 import { LuxuryThemeSample } from "@/components/luxury-theme-sample"
 
 export default function HomePage() {
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false)
+  
   // Uncomment the line below to see the luxury theme sample
   // return <LuxuryThemeSample />
   
@@ -50,9 +56,11 @@ export default function HomePage() {
             Transform your backyard into a luxury retreat with our custom pool and spa solutions
           </p>
           <div className="flex justify-center animate-fade-in-up animate-delay-600">
-            <Button size="lg" className="btn-luxury">
-              Enquire Now
-            </Button>
+            <a href="tel:+14167172750">
+              <Button size="lg" className="btn-luxury">
+                Enquire Now
+              </Button>
+            </a>
           </div>
         </div>
 
@@ -210,9 +218,11 @@ export default function HomePage() {
                             </div>
                           ))}
                         </div>
-                        <Button size="lg" className="btn-luxury">
-                          Schedule Consultation
-                        </Button>
+                        <a href="tel:+14167172750">
+                          <Button size="lg" className="btn-luxury">
+                            Schedule Consultation
+                          </Button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -268,6 +278,7 @@ export default function HomePage() {
                 variant="outline"
                 size="lg"
                 className="btn-luxury border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
+                onClick={() => setIsGalleryOpen(true)}
               >
                 View Full Gallery
               </Button>
@@ -552,6 +563,9 @@ export default function HomePage() {
           </ScrollReveal>
         </div>
       </footer>
+
+      {/* Full Gallery Modal */}
+      <FullGallery isOpen={isGalleryOpen} onClose={() => setIsGalleryOpen(false)} />
     </div>
   )
 }

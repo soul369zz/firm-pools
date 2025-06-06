@@ -54,10 +54,7 @@ export default function ConstructionPage() {
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center md:justify-between">
             <div className="flex items-center space-x-3 mb-2 md:mb-0">
               <Phone className="w-5 h-5 animate-pulse" />
-              <span className="font-bold">POOL EMERGENCY? 24/7 Response • Call:</span>
-              <a href="tel:+14167172750" className="text-white font-bold hover:underline">
-                (416) 717-2750
-              </a>
+              <span className="font-bold">POOL EMERGENCY? 24/7 Response</span>
             </div>
             <a href="tel:+14167172750">
               <Button size="sm" className="btn-luxury">

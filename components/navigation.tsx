@@ -15,10 +15,13 @@ export function Navigation() {
   useEffect(() => {
     const controlNavbar = () => {
       if (typeof window !== 'undefined') {
-        if (window.scrollY > lastScrollY && window.scrollY > 100) {
-          setVisible(false)
-        } else {
-          setVisible(true)
+        // Don't hide nav when mobile menu is open
+        if (!mobileMenuOpen) {
+          if (window.scrollY > lastScrollY && window.scrollY > 100) {
+            setVisible(false)
+          } else {
+            setVisible(true)
+          }
         }
         setLastScrollY(window.scrollY)
       }
@@ -28,12 +31,15 @@ export function Navigation() {
       window.addEventListener('scroll', controlNavbar)
       return () => window.removeEventListener('scroll', controlNavbar)
     }
-  }, [lastScrollY])
+  }, [lastScrollY, mobileMenuOpen])
 
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (mobileMenuOpen) {
+      const target = event.target as HTMLElement
+      const nav = target.closest('nav')
+      
+      if (mobileMenuOpen && !nav) {
         setMobileMenuOpen(false)
       }
     }
@@ -48,7 +54,7 @@ export function Navigation() {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-sm",
-        visible ? "translate-y-0 bg-black/40" : "-translate-y-full",
+        (visible || mobileMenuOpen) ? "translate-y-0 bg-black/40" : "-translate-y-full",
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,9 +94,11 @@ export function Navigation() {
 
           {/* Mobile menu button */}
           <div className="lg:hidden flex items-center space-x-4">
-            <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300 text-sm px-4 py-2">
-              Get Quote
-            </Button>
+            <a href="tel:+14167172750">
+              <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300 text-sm px-4 py-2">
+                Get Quote
+              </Button>
+            </a>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-white hover:text-yellow-400 transition-colors"
@@ -101,9 +109,11 @@ export function Navigation() {
 
           {/* Desktop Get Quote Button */}
           <div className="hidden lg:block">
-            <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300">
-              Get Quote
-            </Button>
+            <a href="tel:+14167172750">
+              <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300">
+                Get Quote
+              </Button>
+            </a>
           </div>
         </div>
 

@@ -246,9 +246,11 @@ export function AboutSection() {
         {/* Call to Action Button */}
         <ScrollReveal animation="fadeInUp" delay={800}>
           <div className="text-center mt-12">
-            <Button size="lg" className="btn-luxury">
-              Book Service
-            </Button>
+            <a href="tel:+14167172750">
+              <Button size="lg" className="btn-luxury">
+                Book Service
+              </Button>
+            </a>
           </div>
         </ScrollReveal>
 

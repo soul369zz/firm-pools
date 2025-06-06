@@ -24,9 +24,11 @@ export function FinalCtaSection() {
               </div>
               <h3 className="text-xl font-bold mb-3">CALL NOW</h3>
               <p className="text-gray-600 mb-6">Speak directly with our pool experts</p>
-              <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
-                (416) 717-2750
-              </Button>
+              <a href="tel:+14167172750">
+                <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
+                  (416) 717-2750
+                </Button>
+              </a>
             </div>
 
             {/* Text Us */}
@@ -36,9 +38,11 @@ export function FinalCtaSection() {
               </div>
               <h3 className="text-xl font-bold mb-3">TEXT US</h3>
               <p className="text-gray-600 mb-6">Quick questions? Send us a message</p>
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
-                Start Chat
-              </Button>
+              <a href="sms:+14167172750">
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
+                  Start Chat
+                </Button>
+              </a>
             </div>
           </div>
         </ScrollReveal>

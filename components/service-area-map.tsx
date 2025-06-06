@@ -146,9 +146,11 @@ export function ServiceAreaMap() {
                 <p className="text-gray-600 mb-4">
                   We're always expanding our service coverage. Contact us to discuss your project.
                 </p>
-                <Button variant="outline" className="btn-luxury">
-                  Contact Us
-                </Button>
+                <a href="tel:+14167172750">
+                  <Button variant="outline" className="btn-luxury">
+                    Contact Us
+                  </Button>
+                </a>
               </div>
             </div>
           </ScrollReveal>
