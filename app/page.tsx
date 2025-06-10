@@ -330,10 +330,10 @@ export default function HomePage() {
               },
             ].map((testimonial, index) => (
               <ScrollReveal key={index} animation="fadeInUp" delay={index * 150}>
-                <Card className="p-6 luxury-hover">
+                <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-105">
                   <div className="flex items-center mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="w-4 h-4 fill-blue-400 text-blue-400" />
                     ))}
                   </div>
                   <p className="text-gray-600 mb-4">"{testimonial.text}"</p>
@@ -385,9 +385,9 @@ export default function HomePage() {
                     <AccordionItem 
                       key={index} 
                       value={`quick-${index}`} 
-                      className="card-luxury border-0 overflow-hidden"
+                      className="bg-white border border-gray-200 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden"
                     >
-                      <AccordionTrigger className="text-left font-semibold text-primary hover:text-luxury-gold transition-colors duration-300 px-4 sm:px-6 py-4 sm:py-5 hover:no-underline [&[data-state=open]]:text-luxury-gold text-base sm:text-lg min-h-[44px] touch-manipulation">
+                      <AccordionTrigger className="text-left font-semibold text-primary hover:text-blue-600 transition-colors duration-300 px-4 sm:px-6 py-4 sm:py-5 hover:no-underline [&[data-state=open]]:text-blue-600 text-base sm:text-lg min-h-[44px] touch-manipulation">
                         {faq.question}
                       </AccordionTrigger>
                       <AccordionContent className="text-slate-600 leading-relaxed px-4 sm:px-6 pb-4 sm:pb-5 text-sm sm:text-base">
@@ -439,9 +439,9 @@ export default function HomePage() {
                     <AccordionItem 
                       key={index} 
                       value={`detailed-${index}`} 
-                      className="card-luxury border-0 overflow-hidden"
+                      className="bg-white border border-gray-200 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden"
                     >
-                      <AccordionTrigger className="text-left font-semibold text-primary hover:text-luxury-gold transition-colors duration-300 px-4 sm:px-6 py-4 sm:py-5 hover:no-underline [&[data-state=open]]:text-luxury-gold text-base sm:text-lg min-h-[44px] touch-manipulation">
+                      <AccordionTrigger className="text-left font-semibold text-primary hover:text-blue-600 transition-colors duration-300 px-4 sm:px-6 py-4 sm:py-5 hover:no-underline [&[data-state=open]]:text-blue-600 text-base sm:text-lg min-h-[44px] touch-manipulation">
                         {faq.question}
                       </AccordionTrigger>
                       <AccordionContent className="text-slate-600 leading-relaxed px-4 sm:px-6 pb-4 sm:pb-5 text-sm sm:text-base">
