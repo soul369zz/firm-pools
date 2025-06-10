@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import OptimizedImage from "@/components/optimized-image"
 import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -69,8 +70,8 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section with Before/After Slider */}
-      <section className="section-luxury bg-luxury-pearl">
-        <div className="container-luxury">
+      <section className="mobile-section bg-white">
+        <div className="mobile-container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <ScrollReveal animation="fadeInLeft">
               <div>
@@ -136,17 +137,17 @@ export default function HomePage() {
       <AboutSection />
 
       {/* Portfolio Section - Premium Single Column Layout */}
-      <section className="section-luxury">
-        <div className="container-luxury">
+      <section className="mobile-section">
+        <div className="mobile-container">
           <ScrollReveal animation="fadeInUp">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">Get inspired by our beautiful work</h2>
+            <div className="text-center mb-12 sm:mb-14 md:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4">Get inspired by our beautiful work</h2>
               <p className="text-lg text-slate-600 leading-relaxed">Explore our portfolio of stunning pool and spa projects</p>
             </div>
           </ScrollReveal>
 
           {/* Portfolio Cards - Single Column */}
-          <div className="space-y-20">
+          <div className="space-y-12 sm:space-y-16 md:space-y-20">
             {[
               {
                 title: "Modern Infinity Pool",
@@ -181,12 +182,14 @@ export default function HomePage() {
                   <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div className={`relative group ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                       <div className="relative overflow-hidden rounded-2xl shadow-2xl luxury-hover bg-white p-3">
-                        <Image
+                        <OptimizedImage
                           src={project.image || "/placeholder.svg"}
                           alt={project.title}
                           width={800}
                           height={600}
                           className="image-hover rounded-xl w-full"
+                          quality={80}
+                          priority={index === 0}
                         />
                         <div className="absolute inset-3 bg-gradient-to-t from-black/60 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         <div className="absolute top-6 left-6">
@@ -238,8 +241,8 @@ export default function HomePage() {
 
 
       {/* Gallery Grid */}
-      <section id="gallery" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="gallery" className="mobile-section">
+        <div className="mobile-container">
           <ScrollReveal animation="fadeInUp">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-4">Our Work Gallery</h2>
@@ -260,11 +263,13 @@ export default function HomePage() {
             ].map((src, index) => (
               <ScrollReveal key={index} animation="scaleIn" delay={index * 100}>
                 <div className="relative group overflow-hidden rounded-lg aspect-square luxury-hover">
-                  <Image
+                  <OptimizedImage
                     src={src || "/placeholder.svg"}
                     alt={`Gallery image ${index + 1}`}
                     fill
                     className="object-cover image-hover"
+                    quality={75}
+                    priority={index < 4}
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
                 </div>
@@ -288,8 +293,8 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section id="reviews" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="reviews" className="mobile-section bg-white">
+        <div className="mobile-container">
           <ScrollReveal animation="fadeInUp">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-4">Hear from our clients</h2>
@@ -344,20 +349,20 @@ export default function HomePage() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="section-luxury bg-luxury-pearl">
+      <section id="faq" className="section-luxury bg-white">
         <div className="container-luxury max-w-4xl">
           <ScrollReveal animation="fadeInUp">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">Frequently asked questions</h2>
-              <p className="text-lg text-slate-600 leading-relaxed">Get answers to common questions about our services</p>
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4">Frequently asked questions</h2>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed px-4 sm:px-0">Get answers to common questions about our services</p>
             </div>
           </ScrollReveal>
 
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
             {/* Quick Answers Section */}
             <ScrollReveal animation="fadeInUp" delay={200}>
               <div>
-                <h3 className="text-2xl font-bold mb-6 text-center text-primary">Quick Answers</h3>
+                <h3 className="text-xl sm:text-2xl font-bold mb-6 text-center text-primary">Quick Answers</h3>
                 <Accordion type="single" collapsible className="space-y-3">
                   {[
                     {
@@ -382,10 +387,10 @@ export default function HomePage() {
                       value={`quick-${index}`} 
                       className="card-luxury border-0 overflow-hidden"
                     >
-                      <AccordionTrigger className="text-left font-semibold text-primary hover:text-luxury-gold transition-colors duration-300 px-4 py-3 hover:no-underline [&[data-state=open]]:text-luxury-gold text-base">
+                      <AccordionTrigger className="text-left font-semibold text-primary hover:text-luxury-gold transition-colors duration-300 px-4 sm:px-6 py-4 sm:py-5 hover:no-underline [&[data-state=open]]:text-luxury-gold text-base sm:text-lg min-h-[44px] touch-manipulation">
                         {faq.question}
                       </AccordionTrigger>
-                      <AccordionContent className="text-slate-600 leading-relaxed px-4 pb-3 text-sm">
+                      <AccordionContent className="text-slate-600 leading-relaxed px-4 sm:px-6 pb-4 sm:pb-5 text-sm sm:text-base">
                         {faq.answer}
                       </AccordionContent>
                     </AccordionItem>
@@ -397,8 +402,8 @@ export default function HomePage() {
             {/* Detailed Information Section */}
             <ScrollReveal animation="fadeInUp" delay={400}>
               <div>
-                <h3 className="text-2xl font-bold mb-6 text-center text-primary">Detailed Information</h3>
-                <Accordion type="single" collapsible className="space-y-4">
+                <h3 className="text-xl sm:text-2xl font-bold mb-6 text-center text-primary">Detailed Information</h3>
+                <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
                   {[
                     {
                       question: "How long does pool construction typically take?",
@@ -436,10 +441,10 @@ export default function HomePage() {
                       value={`detailed-${index}`} 
                       className="card-luxury border-0 overflow-hidden"
                     >
-                      <AccordionTrigger className="text-left font-semibold text-primary hover:text-luxury-gold transition-colors duration-300 px-4 py-3 hover:no-underline [&[data-state=open]]:text-luxury-gold text-base">
+                      <AccordionTrigger className="text-left font-semibold text-primary hover:text-luxury-gold transition-colors duration-300 px-4 sm:px-6 py-4 sm:py-5 hover:no-underline [&[data-state=open]]:text-luxury-gold text-base sm:text-lg min-h-[44px] touch-manipulation">
                         {faq.question}
                       </AccordionTrigger>
-                      <AccordionContent className="text-slate-600 leading-relaxed px-4 pb-3 text-sm">
+                      <AccordionContent className="text-slate-600 leading-relaxed px-4 sm:px-6 pb-4 sm:pb-5 text-sm sm:text-base">
                         {faq.answer}
                       </AccordionContent>
                     </AccordionItem>

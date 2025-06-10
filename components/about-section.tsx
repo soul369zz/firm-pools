@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import OptimizedImage from "@/components/optimized-image"
 import { useInView } from "react-intersection-observer"
 import { Play, Pause, ZoomIn, ChevronLeft, ChevronRight, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -169,7 +170,7 @@ export function AboutSection() {
                 variant="outline"
                 size="sm"
                 onClick={handlePrevious}
-                className="rounded-full w-10 h-10 p-0 btn-luxury"
+                className="rounded-full w-10 h-10 p-0 border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50"
               >
                 <ChevronLeft className="w-4 h-4" />
               </Button>
@@ -178,7 +179,7 @@ export function AboutSection() {
                 variant="outline"
                 size="sm"
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="rounded-full w-10 h-10 p-0 btn-luxury"
+                className="rounded-full w-10 h-10 p-0 border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50"
               >
                 {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
               </Button>
@@ -187,7 +188,7 @@ export function AboutSection() {
                 variant="outline"
                 size="sm"
                 onClick={handleNext}
-                className="rounded-full w-10 h-10 p-0 btn-luxury"
+                className="rounded-full w-10 h-10 p-0 border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50"
               >
                 <ChevronRight className="w-4 h-4" />
               </Button>
@@ -209,12 +210,14 @@ export function AboutSection() {
                   className="relative flex-shrink-0 w-96 h-64 rounded-xl overflow-hidden cursor-pointer group luxury-hover"
                   onClick={() => handleImageClick(index)}
                 >
-                  <Image
+                  <OptimizedImage
                     src={image.src || "/placeholder.svg"}
                     alt={image.alt}
                     fill
                     className="object-cover image-hover"
                     sizes="400px"
+                    quality={75}
+                    priority={index < 4}
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -267,12 +270,14 @@ export function AboutSection() {
               <X className="w-6 h-6" />
             </button>
             <div className="relative w-full h-[80vh]">
-              <Image
+              <OptimizedImage
                 src={images[selectedImage].src || "/placeholder.svg"}
                 alt={images[selectedImage].alt}
                 fill
                 className="object-contain"
                 sizes="(max-width: 768px) 100vw, 80vw"
+                quality={85}
+                priority={true}
               />
             </div>
             <div className="text-center mt-4">
