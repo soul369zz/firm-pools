@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Navigation } from "@/components/navigation"
 
 import { ScrollReveal } from "@/components/scroll-reveal"
-import { ArrowRight, ArrowLeft, Phone, Pencil, Shovel, Hammer, Paintbrush, Award, Instagram, MessageCircle } from "lucide-react"
+import { ArrowRight, ArrowLeft, Phone, Pencil, Shovel, Hammer, Paintbrush, Award, Instagram, MessageCircle, Mail, MapPin } from "lucide-react"
 
 export default function ConstructionPage() {
   return (
@@ -515,12 +515,18 @@ export default function ConstructionPage() {
                 <h4 className="font-semibold mb-4">Contact Info</h4>
                 <div className="space-y-3 text-gray-400">
                   <div className="flex items-center space-x-3">
-                    <span>(416) 717-2750</span>
+                    <Phone className="w-4 h-4" />
+                    <div>
+                      <div>Ruel - (416) 717-2750</div>
+                      <div>Kevin - (416) 906-1960</div>
+                    </div>
                   </div>
                   <div className="flex items-center space-x-3">
+                    <Mail className="w-4 h-4" />
                     <span>firmpoolsandspa@gmail.com</span>
                   </div>
                   <div className="flex items-center space-x-3">
+                    <MapPin className="w-4 h-4" />
                     <span>4236 Chesswood Dr, North York, ON M3J 2B0</span>
                   </div>
                 </div>
