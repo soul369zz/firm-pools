@@ -330,7 +330,7 @@ export default function HomePage() {
               },
             ].map((testimonial, index) => (
               <ScrollReveal key={index} animation="fadeInUp" delay={index * 150}>
-                <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-105">
+                <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl">
                   <div className="flex items-center mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-blue-400 text-blue-400" />
@@ -385,7 +385,7 @@ export default function HomePage() {
                     <AccordionItem 
                       key={index} 
                       value={`quick-${index}`} 
-                      className="bg-white border border-gray-200 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden"
+                      className="bg-white border border-gray-200 rounded-2xl p-4 shadow-lg hover:shadow-xl overflow-hidden"
                     >
                       <AccordionTrigger className="text-left font-semibold text-primary hover:text-blue-600 transition-colors duration-300 px-4 sm:px-6 py-4 sm:py-5 hover:no-underline [&[data-state=open]]:text-blue-600 text-base sm:text-lg min-h-[44px] touch-manipulation">
                         {faq.question}
@@ -439,7 +439,7 @@ export default function HomePage() {
                     <AccordionItem 
                       key={index} 
                       value={`detailed-${index}`} 
-                      className="bg-white border border-gray-200 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden"
+                      className="bg-white border border-gray-200 rounded-2xl p-4 shadow-lg hover:shadow-xl overflow-hidden"
                     >
                       <AccordionTrigger className="text-left font-semibold text-primary hover:text-blue-600 transition-colors duration-300 px-4 sm:px-6 py-4 sm:py-5 hover:no-underline [&[data-state=open]]:text-blue-600 text-base sm:text-lg min-h-[44px] touch-manipulation">
                         {faq.question}
