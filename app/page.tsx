@@ -50,7 +50,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black/70" />
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-7xl font-light mb-6 animate-fade-in-up tracking-tight drop-shadow-2xl text-white">
-            We'll create your
+            Let Firm Pools & Spa help create your
             <span className="block font-bold animate-fade-in-up animate-delay-200 text-white">dream oasis</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-100 animate-fade-in-up animate-delay-400 leading-relaxed drop-shadow-xl text-white">
