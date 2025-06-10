@@ -32,7 +32,7 @@ export function ScrollReveal({ children, className = "", animation = "fadeInUp",
     <div
       ref={ref}
       className={`${className} ${
-        isVisible ? `animate-${animation.replace(/([A-Z])/g, "-$1").toLowerCase()}` : "opacity-0"
+        isVisible ? `animate-${animation.replace(/([A-Z])/g, "-$1").toLowerCase().replace(/^-/, "")}` : "opacity-0"
       }`}
     >
       {children}
