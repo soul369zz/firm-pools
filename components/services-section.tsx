@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import OptimizedImage from "@/components/optimized-image"
 import { Plus, X, Wrench, Hammer, Paintbrush, Settings, Calendar } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -90,8 +91,8 @@ export function ServicesSection() {
   const currentService = services.find((service) => service.id === activeService)
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="mobile-section bg-gray-50">
+      <div className="mobile-container">
         {/* Header */}
         <ScrollReveal animation="fadeInUp">
           <div className="text-center mb-16">
@@ -104,7 +105,7 @@ export function ServicesSection() {
         </ScrollReveal>
 
         {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Left Column - Image */}
           <ScrollReveal animation="fadeInLeft" delay={200}>
             <div className="order-2 lg:order-1">
@@ -114,7 +115,7 @@ export function ServicesSection() {
                 
                 {/* Main image with crossfade effect */}
                 <div className="relative w-full h-full">
-                  <Image
+                  <OptimizedImage
                     src={displayedImage}
                     alt={currentService?.title || "Service"}
                     fill
@@ -125,6 +126,7 @@ export function ServicesSection() {
                         : "scale-100 opacity-100 blur-0 group-hover:scale-110"
                     )}
                     priority
+                    quality={85}
                   />
                 </div>
 
@@ -225,7 +227,7 @@ export function ServicesSection() {
         
         {/* Call to Action Button */}
         <ScrollReveal animation="fadeInUp" delay={800}>
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 sm:mt-10 md:mt-12">
             <a href="tel:+14167172750">
               <Button size="lg" className="btn-luxury transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
                 Get Started Today

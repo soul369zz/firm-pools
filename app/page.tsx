@@ -9,7 +9,7 @@ import { Card } from "@/components/ui/card"
 import { Navigation } from "@/components/navigation"
 import { ServicesSection } from "@/components/services-section"
 import { BeforeAfterSlider } from "@/components/before-after-slider"
-import { TrustBadge } from "@/components/trust-badge"
+
 import { AboutSection } from "@/components/about-section"
 import { ServiceAreaMap } from "@/components/service-area-map"
 import { FinalCtaSection } from "@/components/final-cta-section"
@@ -65,8 +65,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Trust Badge - Only in Hero Section */}
-        <TrustBadge showOnlyInHero={true} />
+
       </section>
 
       {/* Stats Section with Before/After Slider */}

@@ -6,8 +6,8 @@ import { ScrollReveal } from "@/components/scroll-reveal"
 
 export function FinalCtaSection() {
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-gray-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="mobile-section bg-gradient-to-br from-blue-50 to-gray-50">
+      <div className="mobile-container max-w-4xl">
         <ScrollReveal animation="scaleIn">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready for Your Backyard Paradise?</h2>

@@ -1,9 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { useState, useEffect } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -15,7 +14,6 @@ export function Navigation() {
   useEffect(() => {
     const controlNavbar = () => {
       if (typeof window !== 'undefined') {
-        // Don't hide nav when mobile menu is open
         if (!mobileMenuOpen) {
           if (window.scrollY > lastScrollY && window.scrollY > 100) {
             setVisible(false)
@@ -33,7 +31,6 @@ export function Navigation() {
     }
   }, [lastScrollY, mobileMenuOpen])
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement
@@ -65,21 +62,17 @@ export function Navigation() {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
           <div className="hidden lg:block">
             <div className="ml-10 flex items-baseline space-x-8">
               <Link href="/" className="text-white hover:text-yellow-400 transition-colors">
                 Home
               </Link>
-
               <Link href="/services" className="text-white hover:text-yellow-400 transition-colors">
                 Pool Maintenance
               </Link>
-
               <Link href="/construction" className="text-white hover:text-yellow-400 transition-colors">
                 Construction & Renovation
               </Link>
-
               <Link href="/#reviews" className="text-white hover:text-yellow-400 transition-colors">
                 Reviews
               </Link>
@@ -92,10 +85,9 @@ export function Navigation() {
             </div>
           </div>
 
-          {/* Mobile menu button */}
           <div className="lg:hidden flex items-center space-x-4">
             <a href="tel:+14167172750">
-              <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300 text-sm px-4 py-2">
+              <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300 text-sm px-4 py-3 min-h-[44px]">
                 Get Quote
               </Button>
             </a>
@@ -107,7 +99,6 @@ export function Navigation() {
             </button>
           </div>
 
-          {/* Desktop Get Quote Button */}
           <div className="hidden lg:block">
             <a href="tel:+14167172750">
               <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300">
@@ -117,51 +108,47 @@ export function Navigation() {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-white/10">
             <div className="px-4 py-6 space-y-4">
               <Link
                 href="/"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
+                className="block text-white hover:text-yellow-400 transition-colors py-4 text-lg min-h-[44px] flex items-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
               </Link>
-
               <Link
                 href="/services"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
+                className="block text-white hover:text-yellow-400 transition-colors py-4 text-lg min-h-[44px] flex items-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Pool Maintenance
               </Link>
-
               <Link
                 href="/construction"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
+                className="block text-white hover:text-yellow-400 transition-colors py-4 text-lg min-h-[44px] flex items-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Construction & Renovation
               </Link>
-
               <Link
                 href="/#reviews"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
+                className="block text-white hover:text-yellow-400 transition-colors py-4 text-lg min-h-[44px] flex items-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Reviews
               </Link>
               <Link
                 href="/#gallery"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
+                className="block text-white hover:text-yellow-400 transition-colors py-4 text-lg min-h-[44px] flex items-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Our Work
               </Link>
               <Link
                 href="/#faq"
-                className="block text-white hover:text-yellow-400 transition-colors py-2"
+                className="block text-white hover:text-yellow-400 transition-colors py-4 text-lg min-h-[44px] flex items-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 FAQ

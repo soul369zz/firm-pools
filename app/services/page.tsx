@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Navigation } from "@/components/navigation"
 import { ServicesSection } from "@/components/services-section"
-import { TrustBadge } from "@/components/trust-badge"
+
 import { ArrowLeft, Phone, Clock, Shield, Droplets, PenToolIcon as Tool, Calendar, Sparkles, ArrowUpRight, MessageCircle, Instagram } from 'lucide-react'
 import { ScrollReveal } from "@/components/scroll-reveal"
 
@@ -47,8 +47,7 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        {/* Trust Badge - Only in Hero Section */}
-        <TrustBadge showOnlyInHero={true} />
+
       </section>
 
       {/* Emergency Services Banner */}

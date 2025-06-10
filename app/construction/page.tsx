@@ -1,8 +1,9 @@
 import Image from "next/image"
+import OptimizedImage from "@/components/optimized-image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Navigation } from "@/components/navigation"
-import { TrustBadge } from "@/components/trust-badge"
+
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { ArrowRight, ArrowLeft, Phone, Pencil, Shovel, Hammer, Paintbrush, Award, Instagram, MessageCircle } from "lucide-react"
 
@@ -44,8 +45,7 @@ export default function ConstructionPage() {
           </div>
         </div>
 
-        {/* Trust Badge - Only in Hero Section */}
-        <TrustBadge showOnlyInHero={true} />
+
       </section>
 
       {/* Emergency Services Banner */}
@@ -210,11 +210,13 @@ export default function ConstructionPage() {
               <ScrollReveal key={index} animation="fadeInUp" delay={index * 100}>
                 <div className="bg-gray-50 rounded-xl overflow-hidden luxury-hover">
                   <div className="relative h-48">
-                    <Image
+                    <OptimizedImage
                       src={feature.image || "/placeholder.svg"}
                       alt={feature.title}
                       fill
                       className="object-cover"
+                      quality={80}
+                      priority={index < 3}
                     />
                   </div>
                   <div className="p-6">
