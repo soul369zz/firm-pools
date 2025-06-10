@@ -58,7 +58,7 @@ export default function ServicesPage() {
               <Phone className="w-5 h-5 animate-pulse" />
               <span className="font-bold">POOL EMERGENCY? 24/7 Response</span>
             </div>
-            <a href="tel:+14167172750">
+            <a href="tel:+14169061960">
               <Button size="sm" className="btn-luxury">
                 Request Emergency Service
               </Button>
@@ -138,7 +138,7 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                    <a href="tel:+14167172750" className="w-full">
+                    <a href="tel:+14169061960" className="w-full">
                       <Button className="btn-luxury w-full">
                         Learn More
                       </Button>
