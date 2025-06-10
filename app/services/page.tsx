@@ -96,12 +96,6 @@ export default function ServicesPage() {
                 features: ["Gunite Construction", "Tile & Coping", "Equipment Installation"],
               },
               {
-                title: "Spa Installation",
-                description: "Luxury spa and hot tub installation services",
-                image: "/services/spa-installation.jpg",
-                features: ["Integrated Spas", "Standalone Hot Tubs", "Therapeutic Features"],
-              },
-              {
                 title: "Pool Renovation",
                 description: "Transform your existing pool with modern upgrades",
                 image: "/services/pool-renovation.jpg",
