@@ -1,4 +1,5 @@
 import Image from "next/image"
+import OptimizedImage from "@/components/optimized-image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -121,14 +122,16 @@ export default function ServicesPage() {
               },
             ].map((service, index) => (
               <ScrollReveal key={index} animation="fadeInUp" delay={index * 100}>
-                <Card className="group hover:shadow-lg transition-shadow">
+                <Card className="group hover:shadow-lg transition-shadow bg-white border border-gray-200">
                   <div className="relative overflow-hidden rounded-t-lg">
-                    <Image
+                    <OptimizedImage
                       src={service.image || "/placeholder.svg"}
                       alt={service.title}
                       width={400}
                       height={300}
                       className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      quality={80}
+                      priority={index < 3}
                     />
                   </div>
                   <CardContent className="p-6">
