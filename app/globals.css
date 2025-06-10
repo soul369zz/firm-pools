@@ -142,8 +142,8 @@
     scroll-behavior: smooth;
   }
 
-  /* Apple-style animations and transitions */
-  * {
+  /* Apple-style animations and transitions - applied to specific elements only */
+  button, a, input, textarea, select {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
