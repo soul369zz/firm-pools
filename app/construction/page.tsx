@@ -390,11 +390,18 @@ export default function ConstructionPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-3">CALL NOW</h3>
                 <p className="text-gray-600 mb-6">Speak directly with our pool experts</p>
-                <a href="tel:+14167172750" className="w-full">
-                  <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
-                    (416) 717-2750
-                  </Button>
-                </a>
+                <div className="space-y-3">
+                  <a href="tel:+14167172750" className="w-full block">
+                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
+                      Call Ruel
+                    </Button>
+                  </a>
+                  <a href="tel:+14169061960" className="w-full block">
+                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
+                      Call Kevin
+                    </Button>
+                  </a>
+                </div>
               </div>
 
               {/* Text Us */}
@@ -404,11 +411,18 @@ export default function ConstructionPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-3">TEXT US</h3>
                 <p className="text-gray-600 mb-6">Quick questions? Send us a message</p>
-                <a href="tel:+14167172750" className="w-full">
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
-                    Start Chat
-                  </Button>
-                </a>
+                <div className="space-y-3">
+                  <a href="sms:+14167172750" className="w-full block">
+                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
+                      Text Ruel
+                    </Button>
+                  </a>
+                  <a href="sms:+14169061960" className="w-full block">
+                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
+                      Text Kevin
+                    </Button>
+                  </a>
+                </div>
               </div>
             </div>
           </ScrollReveal>
