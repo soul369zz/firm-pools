@@ -260,17 +260,17 @@ export default function ServicesPage() {
                 <h4 className="font-semibold mb-4">Services</h4>
                 <ul className="space-y-2 text-gray-400">
                   <li>
-                    <Link href="#" className="hover:text-white">
+                    <Link href="/construction" className="hover:text-white">
                       Pool Design
                     </Link>
                   </li>
                   <li>
-                    <Link href="#" className="hover:text-white">
+                    <Link href="/construction" className="hover:text-white">
                       Pool Construction
                     </Link>
                   </li>
                   <li>
-                    <Link href="#" className="hover:text-white">
+                    <Link href="/construction" className="hover:text-white">
                       Pool Renovation
                     </Link>
                   </li>

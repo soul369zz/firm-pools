@@ -497,7 +497,7 @@ export default function ConstructionPage() {
                 <h4 className="font-semibold mb-4">Services</h4>
                 <ul className="space-y-2 text-gray-400">
                   <li>
-                    <Link href="/services" className="hover:text-white transition-colors duration-300">
+                    <Link href="/construction" className="hover:text-white transition-colors duration-300">
                       Pool Design
                     </Link>
                   </li>
@@ -507,7 +507,7 @@ export default function ConstructionPage() {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/services" className="hover:text-white transition-colors duration-300">
+                    <Link href="/construction" className="hover:text-white transition-colors duration-300">
                       Pool Renovation
                     </Link>
                   </li>
