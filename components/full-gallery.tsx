@@ -7,28 +7,33 @@ import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
 
 const galleryImages = [
-  "IMG_6683.jpeg",
-  "IMG_6684.jpeg",
+  "IMG_6904 Medium.jpeg",
+  "IMG_6772 Medium.jpeg",
+  "84cc49ef-95d8-4d86-af57-2045fb57499c Medium.jpeg",
+  "bcfaf5d0-eb44-432e-b2f2-3de41fad68b0 Medium.jpeg",
+  "63367c72-6a50-43a2-9d70-be7137bb0756 Medium.jpeg",
+  "bde183fd-20fe-432b-ab30-5c3e9eff3851 Medium.jpeg",
+  "IMG_6832 Medium.jpeg",
+  "62ddd08f-3d55-45a4-848d-71eade0c7bb2.jpg",
+  "982dc9bd-da2d-46f4-81f1-222f319a42fd.jpg",
   "IMG_0815.jpeg",
   "IMG_0820.jpeg",
-  "IMG_1196.jpeg",
   "IMG_8193.jpeg",
-  "IMG_0119.jpeg",
   "IMG_0282.jpeg",
   "IMG_0285.jpeg",
   "IMG_0299.jpeg",
   "IMG_0302.jpeg",
   "IMG_0317.jpeg",
   "IMG_1557.jpeg",
-  "IMG_1679.jpeg",
   "IMG_1741.jpeg",
   "IMG_1824.jpeg",
   "IMG_2337.jpeg",
   "IMG_0677.jpeg",
-  "62ddd08f-3d55-45a4-848d-71eade0c7bb2.JPG",
-  "982dc9bd-da2d-46f4-81f1-222f319a42fd.JPG",
-  "2f3395c9-6623-4f02-8596-d01bd4fc3500.JPG",
-  "d51dd0bd-f0f2-48c3-a97f-6663923f0e39.JPG"
+  "IMG_2339.jpeg",
+  "IMG_2355.jpeg",
+  "IMG_8192.jpeg",
+  "IMG_1913.jpeg",
+  "IMG_1878.jpeg"
 ]
 
 interface FullGalleryProps {

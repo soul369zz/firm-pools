@@ -329,11 +329,32 @@
 
 @keyframes shimmer {
   0% {
-    background-position: -200px 0;
+    transform: translateX(-100%);
   }
   100% {
-    background-position: calc(200px + 100%) 0;
+    transform: translateX(100%);
   }
+}
+
+/* Progress Flow Animation */
+@keyframes flow {
+  0% { 
+    transform: translateX(-100%) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(0%) scale(1);
+  }
+  100% { 
+    transform: translateX(100%) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes progressFill {
+  0% { width: 0%; }
+  100% { width: 100%; }
 }
 
 /* Animation classes */
@@ -359,14 +380,67 @@
 
 .animate-shimmer {
   animation: shimmer 2s infinite;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.2) 20%,
-    rgba(255, 255, 255, 0.5) 60%,
-    rgba(255, 255, 255, 0)
-  );
-  background-size: 200px 100%;
+}
+
+/* Flow Animation Classes */
+.animate-flow {
+  animation: flow 3s linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.animate-flow-1 {
+  animation: flow 3s linear infinite;
+  animation-delay: 0s;
+}
+
+.animate-flow-2 {
+  animation: flow 3s linear infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-flow-3 {
+  animation: flow 3s linear infinite;
+  animation-delay: 1s;
+}
+
+.animate-flow-4 {
+  animation: flow 3s linear infinite;
+  animation-delay: 1.5s;
+}
+
+.animate-flow-5 {
+  animation: flow 3s linear infinite;
+  animation-delay: 2s;
+}
+
+.progress-bar {
+  animation: progressFill 2s ease-out forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.progress-bar-1 {
+  animation: progressFill 2s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.progress-bar-2 {
+  animation: progressFill 2s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+.progress-bar-3 {
+  animation: progressFill 2s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+.progress-bar-4 {
+  animation: progressFill 2s ease-out forwards;
+  animation-delay: 0.8s;
+}
+
+.progress-bar-5 {
+  animation: progressFill 2s ease-out forwards;
+  animation-delay: 1s;
 }
 
 /* Staggered animation delays */

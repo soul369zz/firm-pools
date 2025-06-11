@@ -152,7 +152,7 @@ export default function HomePage() {
                 title: "Modern Infinity Pool",
                 description:
                   "A stunning infinity pool with panoramic city views, featuring integrated lighting and a connected spa.",
-                image: "/gallery/portfolio/portfolio-modern-infinity.jpg",
+                image: "/gallery/portfolio/portfolio-modern-infinity.jpeg",
                 details: ["50ft Infinity Edge", "LED Lighting System", "Integrated Spa", "Natural Stone Decking"],
                 category: "Luxury Residential",
                 year: "2024"
@@ -251,14 +251,14 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {[
-              "/gallery/grid/gallery-1.jpg",
-              "/gallery/grid/gallery-2.jpg",
-              "/gallery/grid/gallery-3.jpg",
-              "/gallery/grid/gallery-4.jpg",
-              "/gallery/grid/gallery-5.jpg",
-              "/gallery/grid/gallery-6.jpg",
-              "/gallery/grid/gallery-7.jpg",
-              "/gallery/grid/gallery-8.jpg",
+              "/gallery/view full/IMG_6904 Medium.jpeg",
+              "/gallery/view full/IMG_6772 Medium.jpeg",
+              "/gallery/view full/84cc49ef-95d8-4d86-af57-2045fb57499c Medium.jpeg",
+              "/gallery/view full/bcfaf5d0-eb44-432e-b2f2-3de41fad68b0 Medium.jpeg",
+              "/gallery/view full/63367c72-6a50-43a2-9d70-be7137bb0756 Medium.jpeg",
+              "/gallery/view full/bde183fd-20fe-432b-ab30-5c3e9eff3851 Medium.jpeg",
+              "/gallery/view full/IMG_6832 Medium.jpeg",
+              "/gallery/view full/62ddd08f-3d55-45a4-848d-71eade0c7bb2.jpg",
             ].map((src, index) => (
               <ScrollReveal key={index} animation="scaleIn" delay={index * 100}>
                 <div className="relative group overflow-hidden rounded-lg aspect-square luxury-hover">
@@ -417,7 +417,7 @@ export default function HomePage() {
                     {
                       question: "What warranty do you provide?",
                       answer:
-                        "We provide a comprehensive warranty covering structural work for 10 years, equipment for 2-3 years, and surface finishes for 1-2 years depending on materials. This gives you peace of mind knowing your investment is protected.",
+                        "We provide a comprehensive warranty covering structural work for 10 years, equipment for 1-2 years, and surface finishes for 1-2 years depending on materials. This gives you peace of mind knowing your investment is protected.",
                     },
                     {
                       question: "Can you work with existing pools?",

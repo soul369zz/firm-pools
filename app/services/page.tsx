@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Navigation } from "@/components/navigation"
 import { ServicesSection } from "@/components/services-section"
+import { ServiceAreaMap } from "@/components/service-area-map"
 
 import { ArrowLeft, Phone, Clock, Shield, Droplets, PenToolIcon as Tool, Calendar, Sparkles, ArrowUpRight, MessageCircle, Instagram, Mail, MapPin } from 'lucide-react'
 import { ScrollReveal } from "@/components/scroll-reveal"
@@ -154,40 +155,8 @@ export default function ServicesPage() {
       {/* Interactive Services Section */}
       <ServicesSection />
 
-      {/* Service Areas */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal animation="fadeInUp">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">Service Areas</h2>
-              <p className="text-lg text-gray-600">We proudly serve the following areas</p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              "Toronto",
-              "Mississauga",
-              "Brampton",
-              "Markham",
-              "Vaughan",
-              "Richmond Hill",
-              "Oakville",
-              "Burlington",
-              "Milton",
-              "Newmarket",
-              "Aurora",
-              "Whitby",
-            ].map((area, index) => (
-              <ScrollReveal key={index} animation="fadeInUp" delay={index * 50}>
-                <div className="text-center p-6 bg-white rounded-lg shadow-sm">
-                  <h3 className="font-semibold">{area}</h3>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Service Area Map Section */}
+      <ServiceAreaMap />
 
       {/* Ready for Your Backyard Paradise Section */}
       <section className="py-20 bg-gradient-to-br from-blue-50 to-gray-50">

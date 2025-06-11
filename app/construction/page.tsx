@@ -3,6 +3,7 @@ import OptimizedImage from "@/components/optimized-image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Navigation } from "@/components/navigation"
+import { ServiceAreaMap } from "@/components/service-area-map"
 
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { ArrowRight, ArrowLeft, Phone, Pencil, Shovel, Hammer, Paintbrush, Award, Instagram, MessageCircle, Mail, MapPin } from "lucide-react"
@@ -77,72 +78,127 @@ export default function ConstructionPage() {
             </div>
           </ScrollReveal>
 
-          {/* Timeline - Horizontal Scroll on Mobile */}
+          {/* Timeline - Progress Flow Visualization */}
           <div className="overflow-x-auto pb-8 scrollbar-hide">
-            <div className="flex min-w-max space-x-6 lg:space-x-12 px-4">
+            <div className="flex min-w-max space-x-6 lg:space-x-12 px-4 relative">
               {[
                 {
                   step: 1,
                   title: "DESIGN",
                   icon: <Pencil className="w-8 h-8" />,
-                  days: 3,
                   description: "Collaborative design process to create your perfect aquatic environment",
                 },
                 {
                   step: 2,
                   title: "EXCAVATE",
                   icon: <Shovel className="w-8 h-8" />,
-                  days: 2,
                   description: "Precision excavation with state-of-the-art equipment",
                 },
                 {
                   step: 3,
-                  title: "SHOTCRETE",
+                  title: "FORM & STEEL",
                   icon: <Hammer className="w-8 h-8" />,
-                  days: 5,
-                  description: "High-strength concrete application for structural integrity",
+                  description: "Steel reinforcement and forming for structural foundation",
                 },
                 {
                   step: 4,
-                  title: "TILE",
-                  icon: <Paintbrush className="w-8 h-8" />,
-                  days: 7,
-                  description: "Expert installation of premium tiles and finishes",
+                  title: "SHOTCRETE",
+                  icon: <Hammer className="w-8 h-8" />,
+                  description: "High-strength concrete application for structural integrity",
                 },
                 {
                   step: 5,
+                  title: "TILE",
+                  icon: <Paintbrush className="w-8 h-8" />,
+                  description: "Expert installation of premium tiles and finishes",
+                },
+                {
+                  step: 6,
                   title: "HANDOVER",
                   icon: <Award className="w-8 h-8" />,
-                  days: 1,
                   description: "Final inspection and comprehensive training on pool operation",
                 },
               ].map((step, index, array) => (
                 <ScrollReveal key={index} animation="fadeInUp" delay={index * 150}>
-                  <div className="flex flex-col items-center w-64">
-                    <div className="flex items-center mb-6 w-full">
-                      <div className="flex-shrink-0 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white">
+                  <div className="flex flex-col items-center w-64 relative">
+                    {/* Progress Connection Line */}
+                    {index < array.length - 1 && (
+                      <div className="absolute top-8 left-32 w-24 lg:w-36 h-1 bg-gray-200 rounded-full hidden md:block z-0">
+                        <div className={`h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full progress-bar-${index + 1} w-0`}></div>
+                        {/* Flowing Particles */}
+                        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+                          <div className={`w-2 h-1 bg-blue-400 rounded-full animate-flow-${index + 1} absolute top-0`}></div>
+                          <div className={`w-1 h-1 bg-blue-300 rounded-full animate-flow-${index + 1} absolute top-0`} style={{animationDelay: `${0.3 + index * 0.1}s`}}></div>
+                          <div className={`w-1 h-1 bg-blue-200 rounded-full animate-flow-${index + 1} absolute top-0`} style={{animationDelay: `${0.6 + index * 0.1}s`}}></div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Step Circle with Enhanced Design */}
+                    <div className="flex items-center mb-6 w-full relative z-10">
+                      <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white shadow-lg relative overflow-hidden group">
+                        {/* Shimmer Effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
                         {step.icon}
+                        {/* Progress Ring */}
+                        <div className="absolute inset-0 rounded-full border-2 border-blue-300/30">
+                          <div className={`absolute inset-0 rounded-full border-2 border-blue-400 border-r-transparent animate-spin`} style={{animationDelay: `${index * 0.2}s`, animationDuration: '3s'}}></div>
+                        </div>
                       </div>
 
+                      {/* Connection Arrow with Flow Effect */}
                       {index < array.length - 1 && (
-                        <div className="h-1 bg-blue-600 flex-grow mx-2 hidden md:block">
-                          <ArrowRight className="text-blue-600 ml-auto -mt-3" />
+                        <div className="flex-grow mx-2 hidden md:flex items-center justify-end relative">
+                          <ArrowRight className="text-blue-600 z-10 drop-shadow-sm" />
                         </div>
                       )}
                     </div>
 
-                    <div className="text-center">
-                      <h3 className="text-xl font-bold mb-2">
-                        {step.step}. {step.title}
-                      </h3>
-                      <div className="text-3xl font-light text-blue-600 mb-2">
-                        {step.days} {step.days === 1 ? "day" : "days"}
+                    {/* Step Content */}
+                    <div className="text-center relative z-10">
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-4 shadow-sm border border-blue-100/50 mb-3">
+                        <div className="w-8 h-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full mx-auto mb-2"></div>
+                        <h3 className="text-xl font-bold mb-2 text-blue-900">
+                          {step.step}. {step.title}
+                        </h3>
                       </div>
-                      <p className="text-gray-600">{step.description}</p>
+                      <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                      
+                      {/* Step Progress Indicator */}
+                      <div className="mt-4 flex justify-center">
+                        <div className="flex space-x-1">
+                          {Array.from({ length: 6 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                                i <= index ? 'bg-blue-500 scale-110' : 'bg-gray-300'
+                              }`}
+                              style={{ animationDelay: `${i * 0.1}s` }}
+                            ></div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </ScrollReveal>
               ))}
+            </div>
+            
+            {/* Overall Progress Bar */}
+            <div className="mt-8 max-w-4xl mx-auto px-4">
+              <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
+                <span>Construction Process</span>
+                <span>100% Quality Assured</span>
+              </div>
+              <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden shadow-inner">
+                <div className="h-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full progress-bar-1 w-0 relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                </div>
+              </div>
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <span>Start</span>
+                <span>Dream Pool Complete</span>
+              </div>
             </div>
           </div>
 
@@ -251,7 +307,7 @@ export default function ConstructionPage() {
                 title: "Modern Infinity Edge",
                 description: "A stunning infinity pool with panoramic city views, featuring integrated lighting and a connected spa.",
                 location: "Toronto",
-                image: "/gallery/construction/modern-infinity-edge.jpg",
+                image: "/construction/Image_fx (5).jpg",
                 details: ["50ft Infinity Edge", "LED Lighting System", "Integrated Spa", "Natural Stone Decking"],
                 category: "Luxury Residential",
                 year: "2024"
@@ -336,40 +392,8 @@ export default function ConstructionPage() {
         </div>
       </section>
 
-      {/* Service Areas */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal animation="fadeInUp">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">Service Areas</h2>
-              <p className="text-lg text-gray-600">We proudly serve the following areas</p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              "Toronto",
-              "Mississauga",
-              "Brampton",
-              "Markham",
-              "Vaughan",
-              "Richmond Hill",
-              "Oakville",
-              "Burlington",
-              "Milton",
-              "Newmarket",
-              "Aurora",
-              "Whitby",
-            ].map((area, index) => (
-              <ScrollReveal key={index} animation="fadeInUp" delay={index * 50}>
-                <div className="text-center p-6 bg-white rounded-lg shadow-sm">
-                  <h3 className="font-semibold">{area}</h3>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Service Area Map Section */}
+      <ServiceAreaMap />
 
       {/* Ready for Your Backyard Paradise Section */}
       <section className="py-20 bg-gradient-to-br from-blue-50 to-gray-50">
