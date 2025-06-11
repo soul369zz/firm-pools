@@ -251,22 +251,22 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {[
-              "/gallery/view%20full/IMG_6904%20Medium.jpeg",
-              "/gallery/view%20full/IMG_6772%20Medium.jpeg",
-              "/gallery/view%20full/84cc49ef-95d8-4d86-af57-2045fb57499c%20Medium.jpeg",
-              "/gallery/view%20full/bcfaf5d0-eb44-432e-b2f2-3de41fad68b0%20Medium.jpeg",
-              "/gallery/view%20full/63367c72-6a50-43a2-9d70-be7137bb0756%20Medium.jpeg",
-              "/gallery/view%20full/bde183fd-20fe-432b-ab30-5c3e9eff3851%20Medium.jpeg",
-              "/gallery/view%20full/IMG_6832%20Medium.jpeg",
-              "/gallery/view%20full/62ddd08f-3d55-45a4-848d-71eade0c7bb2.jpg",
-              "/gallery/view%20full/982dc9bd-da2d-46f4-81f1-222f319a42fd.jpg",
-              "/gallery/view%20full/IMG_0815.jpeg",
-              "/gallery/view%20full/IMG_0820.jpeg",
-              "/gallery/view%20full/IMG_8193.jpeg",
-              "/gallery/view%20full/IMG_0282.jpeg",
-              "/gallery/view%20full/IMG_0285.jpeg",
-              "/gallery/view%20full/IMG_0299.jpeg",
-              "/gallery/view%20full/IMG_0302.jpeg",
+              "/gallery/work-gallery/IMG_6904_Medium.jpeg",
+              "/gallery/work-gallery/IMG_6772_Medium.jpeg",
+              "/gallery/work-gallery/84cc49ef-95d8-4d86-af57-2045fb57499c_Medium.jpeg",
+              "/gallery/work-gallery/bcfaf5d0-eb44-432e-b2f2-3de41fad68b0_Medium.jpeg",
+              "/gallery/work-gallery/63367c72-6a50-43a2-9d70-be7137bb0756_Medium.jpeg",
+              "/gallery/work-gallery/bde183fd-20fe-432b-ab30-5c3e9eff3851_Medium.jpeg",
+              "/gallery/work-gallery/IMG_6832_Medium.jpeg",
+              "/gallery/work-gallery/62ddd08f-3d55-45a4-848d-71eade0c7bb2.jpg",
+              "/gallery/work-gallery/982dc9bd-da2d-46f4-81f1-222f319a42fd.jpg",
+              "/gallery/work-gallery/IMG_0815.jpeg",
+              "/gallery/work-gallery/IMG_0820.jpeg",
+              "/gallery/work-gallery/IMG_8193.jpeg",
+              "/gallery/work-gallery/IMG_0282.jpeg",
+              "/gallery/work-gallery/IMG_0285.jpeg",
+              "/gallery/work-gallery/IMG_0299.jpeg",
+              "/gallery/work-gallery/IMG_0302.jpeg",
             ].map((src, index) => (
               <ScrollReveal key={index} animation="scaleIn" delay={index * 100}>
                 <div className="relative group overflow-hidden rounded-lg aspect-square luxury-hover">
