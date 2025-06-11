@@ -259,6 +259,14 @@ export default function HomePage() {
               "/gallery/view full/bde183fd-20fe-432b-ab30-5c3e9eff3851 Medium.jpeg",
               "/gallery/view full/IMG_6832 Medium.jpeg",
               "/gallery/view full/62ddd08f-3d55-45a4-848d-71eade0c7bb2.jpg",
+              "/gallery/view full/982dc9bd-da2d-46f4-81f1-222f319a42fd.jpg",
+              "/gallery/view full/IMG_0815.jpeg",
+              "/gallery/view full/IMG_0820.jpeg",
+              "/gallery/view full/IMG_8193.jpeg",
+              "/gallery/view full/IMG_0282.jpeg",
+              "/gallery/view full/IMG_0285.jpeg",
+              "/gallery/view full/IMG_0299.jpeg",
+              "/gallery/view full/IMG_0302.jpeg",
             ].map((src, index) => (
               <ScrollReveal key={index} animation="scaleIn" delay={index * 100}>
                 <div className="relative group overflow-hidden rounded-lg aspect-square luxury-hover">
@@ -499,11 +507,6 @@ export default function HomePage() {
                   <li>
                     <Link href="/services" className="hover:text-white transition-colors duration-300">
                       Pool Construction
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/services" className="hover:text-white transition-colors duration-300">
-                      Spa Installation
                     </Link>
                   </li>
                   <li>

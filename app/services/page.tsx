@@ -77,7 +77,7 @@ export default function ServicesPage() {
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-4">What we do</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                From custom pool design to spa installation and maintenance, we offer comprehensive aquatic solutions
+                From custom pool design to maintenance, we offer comprehensive aquatic solutions
               </p>
             </div>
           </ScrollReveal>
@@ -267,11 +267,6 @@ export default function ServicesPage() {
                   <li>
                     <Link href="#" className="hover:text-white">
                       Pool Construction
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      Spa Installation
                     </Link>
                   </li>
                   <li>

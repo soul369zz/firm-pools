@@ -508,11 +508,6 @@ export default function ConstructionPage() {
                   </li>
                   <li>
                     <Link href="/services" className="hover:text-white transition-colors duration-300">
-                      Spa Installation
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/services" className="hover:text-white transition-colors duration-300">
                       Pool Renovation
                     </Link>
                   </li>

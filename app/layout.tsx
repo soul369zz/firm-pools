@@ -4,7 +4,7 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Firm Pools & Spa - Premium Pool Construction & Maintenance | GTA',
   description: 'Expert pool construction, renovation & maintenance services in Toronto, Mississauga & GTA. 20+ years experience creating luxury aquatic environments. Call (416) 717-2750',
-  keywords: 'pool construction Toronto, pool maintenance GTA, spa installation, pool renovation Mississauga, luxury pools Ontario',
+  keywords: 'pool construction Toronto, pool maintenance GTA, pool renovation Mississauga, luxury pools Ontario',
   authors: [{ name: 'Firm Pools & Spa' }],
   creator: 'Firm Pools & Spa',
   publisher: 'Firm Pools & Spa',

@@ -16,6 +16,11 @@ const galleryImages = [
   "IMG_6832 Medium.jpeg",
   "62ddd08f-3d55-45a4-848d-71eade0c7bb2.jpg",
   "982dc9bd-da2d-46f4-81f1-222f319a42fd.jpg",
+  "IMG_2339.jpeg",
+  "IMG_2355.jpeg",
+  "IMG_8192.jpeg",
+  "IMG_1913.jpeg",
+  "IMG_1878.jpeg",
   "IMG_0815.jpeg",
   "IMG_0820.jpeg",
   "IMG_8193.jpeg",
@@ -28,12 +33,7 @@ const galleryImages = [
   "IMG_1741.jpeg",
   "IMG_1824.jpeg",
   "IMG_2337.jpeg",
-  "IMG_0677.jpeg",
-  "IMG_2339.jpeg",
-  "IMG_2355.jpeg",
-  "IMG_8192.jpeg",
-  "IMG_1913.jpeg",
-  "IMG_1878.jpeg"
+  "IMG_0677.jpeg"
 ]
 
 interface FullGalleryProps {
