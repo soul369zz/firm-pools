@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
 
 const galleryImages = [
-  "IMG_6904 Medium.jpeg",
-  "IMG_6772 Medium.jpeg",
-  "84cc49ef-95d8-4d86-af57-2045fb57499c Medium.jpeg",
-  "bcfaf5d0-eb44-432e-b2f2-3de41fad68b0 Medium.jpeg",
-  "63367c72-6a50-43a2-9d70-be7137bb0756 Medium.jpeg",
-  "bde183fd-20fe-432b-ab30-5c3e9eff3851 Medium.jpeg",
-  "IMG_6832 Medium.jpeg",
+  "IMG_6904%20Medium.jpeg",
+  "IMG_6772%20Medium.jpeg",
+  "84cc49ef-95d8-4d86-af57-2045fb57499c%20Medium.jpeg",
+  "bcfaf5d0-eb44-432e-b2f2-3de41fad68b0%20Medium.jpeg",
+  "63367c72-6a50-43a2-9d70-be7137bb0756%20Medium.jpeg",
+  "bde183fd-20fe-432b-ab30-5c3e9eff3851%20Medium.jpeg",
+  "IMG_6832%20Medium.jpeg",
   "62ddd08f-3d55-45a4-848d-71eade0c7bb2.jpg",
   "982dc9bd-da2d-46f4-81f1-222f319a42fd.jpg",
   "IMG_2339.jpeg",
@@ -94,7 +94,7 @@ export function FullGallery({ isOpen, onClose }: FullGalleryProps) {
                 onClick={() => openLightbox(index)}
               >
                 <Image
-                  src={`/gallery/view full/${image}`}
+                  src={`/gallery/view%20full/${image}`}
                   alt={`Gallery image ${index + 1}`}
                   fill
                   className="object-cover image-hover transition-transform duration-500 group-hover:scale-110"
@@ -157,7 +157,7 @@ export function FullGallery({ isOpen, onClose }: FullGalleryProps) {
 
           <div className="relative max-w-5xl max-h-5xl w-full h-full p-8">
             <Image
-              src={`/gallery/view full/${galleryImages[selectedImage]}`}
+              src={`/gallery/view%20full/${galleryImages[selectedImage]}`}
               alt={`Gallery image ${selectedImage + 1}`}
               fill
               className="object-contain"
