@@ -17,7 +17,7 @@ import { AnimatedCounter } from "@/components/animated-counter"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { FullGallery } from "@/components/full-gallery"
 
-import { Star, Phone, Mail, MapPin, Instagram, ChevronDown } from "lucide-react"
+import { Star, Phone, Mail, MapPin, Instagram, ChevronDown, Copy } from "lucide-react"
 import { SocialProofRail } from "@/components/social-proof-rail"
 import {
   Accordion,
@@ -29,9 +29,37 @@ import { LuxuryThemeSample } from "@/components/luxury-theme-sample"
 
 export default function HomePage() {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
+  const [expandedButtons, setExpandedButtons] = useState<{[key: string]: boolean}>({})
+  const [copiedText, setCopiedText] = useState("")
   
   // Uncomment the line below to see the luxury theme sample
   // return <LuxuryThemeSample />
+  
+  // Handle button click - expand on desktop, call on mobile
+  const handleButtonClick = (buttonId: string) => {
+    // Check if mobile device
+    if (window.innerWidth <= 768) {
+      // Mobile: direct call - use Kevin's number for home page
+      window.location.href = "tel:+14169061960"
+    } else {
+      // Desktop: expand button
+      setExpandedButtons(prev => ({
+        ...prev,
+        [buttonId]: !prev[buttonId]
+      }))
+    }
+  }
+
+  // Copy to clipboard function
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedText(text)
+      setTimeout(() => setCopiedText(""), 2000)
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+    }
+  }
   
   return (
     <div className="min-h-screen">
@@ -57,11 +85,33 @@ export default function HomePage() {
             Transform your backyard into a luxury retreat with our custom pool and spa solutions
           </p>
           <div className="flex justify-center animate-fade-in-up animate-delay-600">
-            <a href="tel:+14167172750">
-              <Button size="lg" className="btn-luxury">
-                Enquire Now
-              </Button>
-            </a>
+            <Button 
+              size="lg" 
+              className={`btn-luxury transition-all duration-300 ${
+                expandedButtons['hero-enquire'] ? 'bg-luxury-gold text-white' : ''
+              }`}
+              onClick={() => handleButtonClick('hero-enquire')}
+            >
+              {expandedButtons['hero-enquire'] ? (
+                <div className="flex items-center space-x-3">
+                  <span>+1(416) 906-1960</span>
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      copyToClipboard("+1(416) 906-1960")
+                    }}
+                    className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                  >
+                    <Copy className="w-4 h-4" />
+                    <span className="text-sm">
+                      {copiedText === "+1(416) 906-1960" ? "Copied!" : "Copy"}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                "Enquire Now"
+              )}
+            </Button>
           </div>
         </div>
 
@@ -220,11 +270,33 @@ export default function HomePage() {
                             </div>
                           ))}
                         </div>
-                        <a href="tel:+14167172750">
-                          <Button size="lg" className="btn-luxury">
-                            Schedule Consultation
-                          </Button>
-                        </a>
+                        <Button 
+                          size="lg" 
+                          className={`btn-luxury transition-all duration-300 ${
+                            expandedButtons[`portfolio-${index}`] ? 'bg-luxury-gold text-white' : ''
+                          }`}
+                          onClick={() => handleButtonClick(`portfolio-${index}`)}
+                        >
+                          {expandedButtons[`portfolio-${index}`] ? (
+                            <div className="flex items-center space-x-3">
+                              <span>+1(416) 906-1960</span>
+                              <div
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  copyToClipboard("+1(416) 906-1960")
+                                }}
+                                className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                              >
+                                <Copy className="w-4 h-4" />
+                                <span className="text-sm">
+                                  {copiedText === "+1(416) 906-1960" ? "Copied!" : "Copy"}
+                                </span>
+                              </div>
+                            </div>
+                          ) : (
+                            "Schedule Consultation"
+                          )}
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -463,11 +535,32 @@ export default function HomePage() {
 
           <ScrollReveal animation="fadeInUp" delay={600}>
             <div className="text-center mt-12">
-              <a href="tel:+14167172750">
-                <Button className="btn-luxury">
-                  Contact Us for More Info
-                </Button>
-              </a>
+              <Button 
+                className={`btn-luxury transition-all duration-300 ${
+                  expandedButtons['faq-contact'] ? 'bg-luxury-gold text-white' : ''
+                }`}
+                onClick={() => handleButtonClick('faq-contact')}
+              >
+                {expandedButtons['faq-contact'] ? (
+                  <div className="flex items-center space-x-3">
+                    <span>+1(416) 906-1960</span>
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        copyToClipboard("+1(416) 906-1960")
+                      }}
+                      className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                    >
+                      <Copy className="w-4 h-4" />
+                      <span className="text-sm">
+                        {copiedText === "+1(416) 906-1960" ? "Copied!" : "Copy"}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  "Contact Us for More Info"
+                )}
+              </Button>
             </div>
           </ScrollReveal>
         </div>
