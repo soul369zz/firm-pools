@@ -28,7 +28,7 @@ const services: Service[] = [
   },
   {
     id: "construction",
-    title: "Construction & Custom Pools",
+    title: "Construction & Custom Pools/Spa",
     description: "Fully custom new builds designed to your space.",
     icon: <Hammer className="w-6 h-6" />,
     image: "/services/pool-construction.jpg",
