@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react"
 import Image from "next/image"
 import OptimizedImage from "@/components/optimized-image"
 import Link from "next/link"
@@ -7,10 +10,44 @@ import { Navigation } from "@/components/navigation"
 import { ServicesSection } from "@/components/services-section"
 import { ServiceAreaMap } from "@/components/service-area-map"
 
-import { ArrowLeft, Phone, Clock, Shield, Droplets, PenToolIcon as Tool, Calendar, Sparkles, ArrowUpRight, MessageCircle, Instagram, Mail, MapPin } from 'lucide-react'
+import { ArrowLeft, Phone, Clock, Shield, Droplets, PenToolIcon as Tool, Calendar, Sparkles, ArrowUpRight, MessageCircle, Instagram, Mail, MapPin, Copy } from 'lucide-react'
 import { ScrollReveal } from "@/components/scroll-reveal"
 
 export default function ServicesPage() {
+  // State for button expansions and copy feedback
+  const [expandedButtons, setExpandedButtons] = useState<{[key: string]: boolean}>({})
+  const [copiedText, setCopiedText] = useState("")
+
+  const handleButtonClick = (buttonId: string) => {
+    // Check if mobile device
+    if (window.innerWidth <= 768) {
+      // Mobile: direct call - use Ruel's number for Ruel buttons
+      if (buttonId === 'call-ruel') {
+        window.location.href = "tel:+14167172750"
+      } else if (buttonId === 'text-ruel') {
+        window.location.href = "sms:+14167172750"
+      } else {
+        window.location.href = "tel:+14169061960"
+      }
+    } else {
+      // Desktop: expand button
+      setExpandedButtons(prev => ({
+        ...prev,
+        [buttonId]: !prev[buttonId]
+      }))
+    }
+  }
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedText(text)
+      setTimeout(() => setCopiedText(""), 2000)
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+    }
+  }
+
   return (
     <div className="min-h-screen">
       {/* Navigation */}
@@ -59,11 +96,37 @@ export default function ServicesPage() {
               <Phone className="w-5 h-5 animate-pulse" />
               <span className="font-bold">POOL EMERGENCY? 24/7 Response</span>
             </div>
-            <a href="tel:+14169061960">
-              <Button size="sm" className="btn-luxury">
+            <Button 
+              size="sm" 
+              className={`btn-luxury transition-all duration-300 relative overflow-hidden ${
+                expandedButtons['emergency'] ? 'bg-luxury-gold text-white px-6' : ''
+              }`}
+              onClick={() => handleButtonClick('emergency')}
+              style={{
+                width: expandedButtons['emergency'] ? 'auto' : undefined,
+                minWidth: expandedButtons['emergency'] ? '200px' : undefined
+              }}
+            >
+              <div className={`transition-all duration-300 ${expandedButtons['emergency'] ? 'hidden' : 'block'}`}>
                 Request Emergency Service
-              </Button>
-            </a>
+              </div>
+              <div className={`transition-all duration-300 ${expandedButtons['emergency'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                <span className="text-sm">+1(416) 906-1960</span>
+                <div
+                  className="cursor-pointer hover:bg-white hover:text-luxury-gold rounded-full p-1 transition-colors duration-200"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    copyToClipboard("+1(416) 906-1960")
+                  }}
+                  title="Copy number"
+                >
+                  <Copy size={16} />
+                </div>
+                {copiedText === "+1(416) 906-1960" && (
+                  <span className="text-xs text-white/80 ml-1">Copied!</span>
+                )}
+              </div>
+            </Button>
           </div>
         </div>
       </ScrollReveal>
@@ -77,7 +140,7 @@ export default function ServicesPage() {
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-4">What we do</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                From custom pool design to maintenance, we offer comprehensive aquatic solutions
+                From regular maintenance to equipment repair, we offer comprehensive pool care solutions
               </p>
             </div>
           </ScrollReveal>
@@ -85,27 +148,27 @@ export default function ServicesPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: "Custom Pool Design",
-                description: "Bespoke pool designs tailored to your space and lifestyle",
-                image: "/services/custom-pool-design.jpg",
-                features: ["3D Design Visualization", "Site Analysis", "Permit Assistance"],
+                title: "Pool Cleaning",
+                description: "Professional pool cleaning services to keep your water crystal clear and inviting",
+                image: "/services/service 1-pool cleaning.jpeg",
+                features: ["Weekly/Bi-weekly Service", "Debris & Leaf Removal", "Surface Skimming & Vacuuming"],
               },
               {
-                title: "Pool Construction",
-                description: "Expert construction using premium materials and techniques",
-                image: "/services/pool-construction.jpg",
-                features: ["Gunite Construction", "Tile & Coping", "Equipment Installation"],
+                title: "Equipment Repair",
+                description: "Expert repair and maintenance of pumps, filters, heaters, and automation systems",
+                image: "/services/Service 3- Equipment Repair.jpg",
+                features: ["Pump & Filter Repair", "Heater Diagnostics", "Automation System Service"],
               },
               {
-                title: "Pool Renovation",
-                description: "Transform your existing pool with modern upgrades",
-                image: "/services/pool-renovation.jpg",
-                features: ["Surface Refinishing", "Equipment Upgrades", "Feature Additions"],
+                title: "Chemical Balancing",
+                description: "Precise water chemistry management for safe, comfortable swimming conditions",
+                image: "/services/maintenance-services.jpg",
+                features: ["pH & Alkalinity Testing", "Chlorine Level Management", "Water Quality Analysis"],
               },
               {
                 title: "Maintenance Services",
                 description: "Keep your pool pristine with our maintenance programs",
-                image: "/services/maintenance-services.jpg",
+                image: "/services/Service 4- Pool Maintenance.jpg",
                 features: ["Weekly Cleaning", "Chemical Balancing", "Equipment Service"],
               },
               {
@@ -113,6 +176,12 @@ export default function ServicesPage() {
                 description: "Complete outdoor living space design and installation",
                 image: "/services/landscape-integration.jpg",
                 features: ["Hardscaping", "Outdoor Kitchens", "Fire Features"],
+              },
+              {
+                title: "Pool Opening/Closing",
+                description: "Seasonal pool opening and closing services to protect your investment year-round",
+                image: "/services/Service 2-pool opening:closing.jpg",
+                features: ["Spring Pool Opening", "Winterization Service", "Equipment Inspection"],
               },
             ].map((service, index) => (
               <ScrollReveal key={index} animation="fadeInUp" delay={index * 100}>
@@ -139,11 +208,36 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                    <a href="tel:+14169061960" className="w-full">
-                      <Button className="btn-luxury w-full">
+                    <Button 
+                      className={`btn-luxury w-full transition-all duration-300 relative overflow-hidden ${
+                        expandedButtons[`service-${index}`] ? 'bg-luxury-gold text-white px-6' : ''
+                      }`}
+                      onClick={() => handleButtonClick(`service-${index}`)}
+                      style={{
+                        width: expandedButtons[`service-${index}`] ? 'auto' : undefined,
+                        minWidth: expandedButtons[`service-${index}`] ? '200px' : undefined
+                      }}
+                    >
+                      <div className={`transition-all duration-300 ${expandedButtons[`service-${index}`] ? 'hidden' : 'block'}`}>
                         Learn More
-                      </Button>
-                    </a>
+                      </div>
+                      <div className={`transition-all duration-300 ${expandedButtons[`service-${index}`] ? 'flex items-center gap-2' : 'hidden'}`}>
+                        <span className="text-sm">+1(416) 906-1960</span>
+                        <div
+                          className="cursor-pointer hover:bg-white hover:text-luxury-gold rounded-full p-1 transition-colors duration-200"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            copyToClipboard("+1(416) 906-1960")
+                          }}
+                          title="Copy number"
+                        >
+                          <Copy size={16} />
+                        </div>
+                        {copiedText === "+1(416) 906-1960" && (
+                          <span className="text-xs text-white/80 ml-1">Copied!</span>
+                        )}
+                      </div>
+                    </Button>
                   </CardContent>
                 </Card>
               </ScrollReveal>
@@ -178,16 +272,68 @@ export default function ServicesPage() {
                 <h3 className="text-xl font-bold mb-3">CALL NOW</h3>
                 <p className="text-gray-600 mb-6">Speak directly with our pool experts</p>
                 <div className="space-y-3">
-                  <a href="tel:+14167172750" className="w-full block">
-                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
+                  <Button 
+                    className={`w-full bg-green-600 hover:bg-green-700 text-white btn-luxury transition-all duration-300 relative overflow-hidden ${
+                      expandedButtons['call-ruel'] ? 'bg-luxury-gold' : ''
+                    }`}
+                    size="lg"
+                    onClick={() => handleButtonClick('call-ruel')}
+                    style={{
+                      width: expandedButtons['call-ruel'] ? 'auto' : undefined,
+                      minWidth: expandedButtons['call-ruel'] ? '200px' : undefined
+                    }}
+                  >
+                    <div className={`transition-all duration-300 ${expandedButtons['call-ruel'] ? 'hidden' : 'block'}`}>
                       Call Ruel
-                    </Button>
-                  </a>
-                  <a href="tel:+14169061960" className="w-full block">
-                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
+                    </div>
+                    <div className={`transition-all duration-300 ${expandedButtons['call-ruel'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                      <span className="text-sm">+1(416) 717-2750</span>
+                      <div
+                        className="cursor-pointer hover:bg-white hover:text-green-600 rounded-full p-1 transition-colors duration-200"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 717-2750")
+                        }}
+                        title="Copy number"
+                      >
+                        <Copy size={16} />
+                      </div>
+                      {copiedText === "+1(416) 717-2750" && (
+                        <span className="text-xs text-white/80 ml-1">Copied!</span>
+                      )}
+                    </div>
+                  </Button>
+                  <Button 
+                    className={`w-full bg-green-600 hover:bg-green-700 text-white btn-luxury transition-all duration-300 relative overflow-hidden ${
+                      expandedButtons['call-kevin'] ? 'bg-luxury-gold' : ''
+                    }`}
+                    size="lg"
+                    onClick={() => handleButtonClick('call-kevin')}
+                    style={{
+                      width: expandedButtons['call-kevin'] ? 'auto' : undefined,
+                      minWidth: expandedButtons['call-kevin'] ? '200px' : undefined
+                    }}
+                  >
+                    <div className={`transition-all duration-300 ${expandedButtons['call-kevin'] ? 'hidden' : 'block'}`}>
                       Call Kevin
-                    </Button>
-                  </a>
+                    </div>
+                    <div className={`transition-all duration-300 ${expandedButtons['call-kevin'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                      <span className="text-sm">+1(416) 906-1960</span>
+                      <div
+                        className="cursor-pointer hover:bg-white hover:text-green-600 rounded-full p-1 transition-colors duration-200"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 906-1960")
+                        }}
+                        title="Copy number"
+                      >
+                        <Copy size={16} />
+                      </div>
+                      {copiedText === "+1(416) 906-1960" && (
+                        <span className="text-xs text-white/80 ml-1">Copied!</span>
+                      )}
+                    </div>
+                  </Button>
                 </div>
               </div>
 
@@ -199,16 +345,68 @@ export default function ServicesPage() {
                 <h3 className="text-xl font-bold mb-3">TEXT US</h3>
                 <p className="text-gray-600 mb-6">Quick questions? Send us a message</p>
                 <div className="space-y-3">
-                  <a href="sms:+14167172750" className="w-full block">
-                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
+                  <Button 
+                    className={`w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury transition-all duration-300 relative overflow-hidden ${
+                      expandedButtons['text-ruel'] ? 'bg-luxury-gold' : ''
+                    }`}
+                    size="lg"
+                    onClick={() => handleButtonClick('text-ruel')}
+                    style={{
+                      width: expandedButtons['text-ruel'] ? 'auto' : undefined,
+                      minWidth: expandedButtons['text-ruel'] ? '200px' : undefined
+                    }}
+                  >
+                    <div className={`transition-all duration-300 ${expandedButtons['text-ruel'] ? 'hidden' : 'block'}`}>
                       Text Ruel
-                    </Button>
-                  </a>
-                  <a href="sms:+14169061960" className="w-full block">
-                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
+                    </div>
+                    <div className={`transition-all duration-300 ${expandedButtons['text-ruel'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                      <span className="text-sm">+1(416) 717-2750</span>
+                      <div
+                        className="cursor-pointer hover:bg-white hover:text-purple-600 rounded-full p-1 transition-colors duration-200"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 717-2750")
+                        }}
+                        title="Copy number"
+                      >
+                        <Copy size={16} />
+                      </div>
+                      {copiedText === "+1(416) 717-2750" && (
+                        <span className="text-xs text-white/80 ml-1">Copied!</span>
+                      )}
+                    </div>
+                  </Button>
+                  <Button 
+                    className={`w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury transition-all duration-300 relative overflow-hidden ${
+                      expandedButtons['text-kevin'] ? 'bg-luxury-gold' : ''
+                    }`}
+                    size="lg"
+                    onClick={() => handleButtonClick('text-kevin')}
+                    style={{
+                      width: expandedButtons['text-kevin'] ? 'auto' : undefined,
+                      minWidth: expandedButtons['text-kevin'] ? '200px' : undefined
+                    }}
+                  >
+                    <div className={`transition-all duration-300 ${expandedButtons['text-kevin'] ? 'hidden' : 'block'}`}>
                       Text Kevin
-                    </Button>
-                  </a>
+                    </div>
+                    <div className={`transition-all duration-300 ${expandedButtons['text-kevin'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                      <span className="text-sm">+1(416) 906-1960</span>
+                      <div
+                        className="cursor-pointer hover:bg-white hover:text-purple-600 rounded-full p-1 transition-colors duration-200"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 906-1960")
+                        }}
+                        title="Copy number"
+                      >
+                        <Copy size={16} />
+                      </div>
+                      {copiedText === "+1(416) 906-1960" && (
+                        <span className="text-xs text-white/80 ml-1">Copied!</span>
+                      )}
+                    </div>
+                  </Button>
                 </div>
               </div>
             </div>

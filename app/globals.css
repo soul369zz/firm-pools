@@ -558,3 +558,10 @@
 .animate-slide-in-down {
   animation: slideInDown 0.5s ease-out forwards;
 }
+
+/* Desktop-only interactions */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+}

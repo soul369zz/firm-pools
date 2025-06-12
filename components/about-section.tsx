@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import OptimizedImage from "@/components/optimized-image"
 import { useInView } from "react-intersection-observer"
-import { Play, Pause, ZoomIn, ChevronLeft, ChevronRight, X } from "lucide-react"
+import { Play, Pause, ZoomIn, ChevronLeft, ChevronRight, X, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
 
@@ -95,8 +95,31 @@ export function AboutSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
+  const [isButtonExpanded, setIsButtonExpanded] = useState(false)
+  const [copiedText, setCopiedText] = useState("")
   const scrollRef = useRef<HTMLDivElement>(null)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  const handleButtonClick = () => {
+    // Check if mobile device
+    if (window.innerWidth <= 768) {
+      // Mobile: direct call
+      window.location.href = "tel:+14169061960"
+    } else {
+      // Desktop: expand button
+      setIsButtonExpanded(!isButtonExpanded)
+    }
+  }
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedText(text)
+      setTimeout(() => setCopiedText(""), 2000)
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+    }
+  }
 
   // Auto-scroll functionality
   useEffect(() => {
@@ -249,11 +272,33 @@ export function AboutSection() {
         {/* Call to Action Button */}
         <ScrollReveal animation="fadeInUp" delay={800}>
           <div className="text-center mt-12">
-            <a href="tel:+14167172750">
-              <Button size="lg" className="btn-luxury">
-                Book Service
-              </Button>
-            </a>
+            <Button 
+              size="lg" 
+              className={`btn-luxury transition-all duration-300 ${
+                isButtonExpanded ? 'bg-luxury-gold text-white' : ''
+              }`}
+              onClick={handleButtonClick}
+            >
+              {isButtonExpanded ? (
+                <div className="flex items-center space-x-3">
+                  <span>+1(416) 906-1960</span>
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      copyToClipboard("+1(416) 906-1960")
+                    }}
+                    className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                  >
+                    <Copy className="w-4 h-4" />
+                    <span className="text-sm">
+                      {copiedText === "+1(416) 906-1960" ? "Copied!" : "Copy"}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                "Book Service"
+              )}
+            </Button>
           </div>
         </ScrollReveal>
 

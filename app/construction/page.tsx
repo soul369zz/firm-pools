@@ -1,14 +1,55 @@
+"use client"
+
+import { useState } from "react"
 import Image from "next/image"
 import OptimizedImage from "@/components/optimized-image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import { Navigation } from "@/components/navigation"
 import { ServiceAreaMap } from "@/components/service-area-map"
 
 import { ScrollReveal } from "@/components/scroll-reveal"
-import { ArrowRight, ArrowLeft, Phone, Pencil, Shovel, Hammer, Paintbrush, Award, Instagram, MessageCircle, Mail, MapPin } from "lucide-react"
+import { ArrowRight, ArrowLeft, Phone, Pencil, Shovel, Hammer, Paintbrush, Award, Instagram, MessageCircle, Mail, MapPin, Copy } from "lucide-react"
 
 export default function ConstructionPage() {
+  // State for button expansions and copy feedback
+  const [expandedButtons, setExpandedButtons] = useState<{[key: string]: boolean}>({})
+  const [copiedText, setCopiedText] = useState("")
+
+  const handleButtonClick = (buttonId: string) => {
+    // Check if mobile device
+    if (window.innerWidth <= 768) {
+      // Mobile: direct call - use Ruel's number for all construction page buttons except Kevin's individual buttons
+      if (buttonId === 'call-kevin') {
+        window.location.href = "tel:+14169061960"
+      } else if (buttonId === 'text-kevin') {
+        window.location.href = "sms:+14169061960"
+      } else if (buttonId === 'text-ruel') {
+        window.location.href = "sms:+14167172750"
+      } else {
+        // All other buttons use Ruel's number for calls
+        window.location.href = "tel:+14167172750"
+      }
+    } else {
+      // Desktop: expand button
+      setExpandedButtons(prev => ({
+        ...prev,
+        [buttonId]: !prev[buttonId]
+      }))
+    }
+  }
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedText(text)
+      setTimeout(() => setCopiedText(""), 2000)
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+    }
+  }
+
   return (
     <div className="min-h-screen">
       {/* Navigation */}
@@ -57,14 +98,135 @@ export default function ConstructionPage() {
               <Phone className="w-5 h-5 animate-pulse" />
               <span className="font-bold">POOL EMERGENCY? 24/7 Response</span>
             </div>
-            <a href="tel:+14167172750">
-              <Button size="sm" className="btn-luxury">
+            <Button 
+              size="sm" 
+              className={`btn-luxury transition-all duration-300 relative overflow-hidden ${
+                expandedButtons['emergency'] ? 'bg-luxury-gold text-white px-6' : ''
+              }`}
+              onClick={() => handleButtonClick('emergency')}
+              style={{
+                width: expandedButtons['emergency'] ? 'auto' : undefined,
+                minWidth: expandedButtons['emergency'] ? '200px' : undefined
+              }}
+            >
+              <div className={`transition-all duration-300 ${expandedButtons['emergency'] ? 'hidden' : 'block'}`}>
                 Request Emergency Service
-              </Button>
-            </a>
+              </div>
+              <div className={`transition-all duration-300 ${expandedButtons['emergency'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                <span className="text-sm">+1(416) 717-2750</span>
+                <div
+                  className="cursor-pointer hover:bg-white hover:text-luxury-gold rounded-full p-1 transition-colors duration-200"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    copyToClipboard("+1(416) 717-2750")
+                  }}
+                  title="Copy number"
+                >
+                  <Copy size={16} />
+                </div>
+                {copiedText === "+1(416) 717-2750" && (
+                  <span className="text-xs text-white/80 ml-1">Copied!</span>
+                )}
+              </div>
+            </Button>
           </div>
         </div>
       </ScrollReveal>
+
+      {/* Construction Services Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal animation="fadeInUp">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-4">Construction Services</h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Comprehensive construction services from design to completion
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Custom Pool Design",
+                description: "Bespoke pool designs tailored to your space and lifestyle",
+                image: "/services/custom-pool-design.jpg",
+                features: ["3D Design Visualization", "Site Analysis", "Permit Assistance"],
+              },
+              {
+                title: "Pool Construction",
+                description: "Expert construction using premium materials and techniques",
+                image: "/services/pool-construction.jpg",
+                features: ["Gunite Construction", "Tile & Coping", "Equipment Installation"],
+              },
+              {
+                title: "Pool Renovation",
+                description: "Transform your existing pool with modern upgrades",
+                image: "/services/pool-renovation.jpg",
+                features: ["Surface Refinishing", "Equipment Upgrades", "Feature Additions"],
+              },
+            ].map((service, index) => (
+              <ScrollReveal key={index} animation="fadeInUp" delay={index * 100}>
+                <Card className="group hover:shadow-lg transition-shadow bg-white border border-gray-200">
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <OptimizedImage
+                      src={service.image || "/placeholder.svg"}
+                      alt={service.title}
+                      width={400}
+                      height={300}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      quality={80}
+                      priority={index < 3}
+                    />
+                  </div>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                    <p className="text-gray-600 mb-4">{service.description}</p>
+                    <ul className="space-y-1 mb-4">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="text-sm text-gray-500 flex items-center">
+                          <div className="w-1 h-1 bg-blue-600 rounded-full mr-2" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                    <Button 
+                      className={`btn-luxury w-full transition-all duration-300 relative overflow-hidden ${
+                        expandedButtons[`construction-service-${index}`] ? 'bg-luxury-gold text-white px-6' : ''
+                      }`}
+                      onClick={() => handleButtonClick(`construction-service-${index}`)}
+                      style={{
+                        width: expandedButtons[`construction-service-${index}`] ? 'auto' : undefined,
+                        minWidth: expandedButtons[`construction-service-${index}`] ? '200px' : undefined
+                      }}
+                    >
+                      <div className={`transition-all duration-300 ${expandedButtons[`construction-service-${index}`] ? 'hidden' : 'block'}`}>
+                        Learn More
+                      </div>
+                      <div className={`transition-all duration-300 ${expandedButtons[`construction-service-${index}`] ? 'flex items-center gap-2' : 'hidden'}`}>
+                        <span className="text-sm">+1(416) 717-2750</span>
+                        <div
+                          className="cursor-pointer hover:bg-white hover:text-luxury-gold rounded-full p-1 transition-colors duration-200"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            copyToClipboard("+1(416) 717-2750")
+                          }}
+                          title="Copy number"
+                        >
+                          <Copy size={16} />
+                        </div>
+                        {copiedText === "+1(416) 717-2750" && (
+                          <span className="text-xs text-white/80 ml-1">Copied!</span>
+                        )}
+                      </div>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Process Timeline Section */}
       <section className="py-24 bg-gray-50">
@@ -204,9 +366,36 @@ export default function ConstructionPage() {
 
           <ScrollReveal animation="fadeInUp" delay={300}>
             <div className="text-center mt-12">
-              <a href="tel:+14167172750">
-                <Button className="btn-luxury">Schedule Consultation</Button>
-              </a>
+              <Button 
+                className={`btn-luxury transition-all duration-300 relative overflow-hidden ${
+                  expandedButtons['schedule1'] ? 'bg-luxury-gold text-white px-6' : ''
+                }`}
+                onClick={() => handleButtonClick('schedule1')}
+                style={{
+                  width: expandedButtons['schedule1'] ? 'auto' : undefined,
+                  minWidth: expandedButtons['schedule1'] ? '200px' : undefined
+                }}
+              >
+                <div className={`transition-all duration-300 ${expandedButtons['schedule1'] ? 'hidden' : 'block'}`}>
+                  Schedule Consultation
+                </div>
+                <div className={`transition-all duration-300 ${expandedButtons['schedule1'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                  <span className="text-sm">+1(416) 717-2750</span>
+                  <div
+                    className="cursor-pointer hover:bg-white hover:text-luxury-gold rounded-full p-1 transition-colors duration-200"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      copyToClipboard("+1(416) 717-2750")
+                    }}
+                    title="Copy number"
+                  >
+                    <Copy size={16} />
+                  </div>
+                  {copiedText === "+1(416) 717-2750" && (
+                    <span className="text-xs text-white/80 ml-1">Copied!</span>
+                  )}
+                </div>
+              </Button>
             </div>
           </ScrollReveal>
         </div>
@@ -278,11 +467,36 @@ export default function ConstructionPage() {
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
                     <p className="text-gray-600 mb-4">{feature.description}</p>
-                    <a href="tel:+14167172750" className="w-full">
-                      <Button className="btn-luxury w-full">
+                    <Button 
+                      className={`btn-luxury w-full transition-all duration-300 relative overflow-hidden ${
+                        expandedButtons[`learn-${index}`] ? 'bg-luxury-gold text-white px-6' : ''
+                      }`}
+                      onClick={() => handleButtonClick(`learn-${index}`)}
+                      style={{
+                        width: expandedButtons[`learn-${index}`] ? 'auto' : undefined,
+                        minWidth: expandedButtons[`learn-${index}`] ? '200px' : undefined
+                      }}
+                    >
+                      <div className={`transition-all duration-300 ${expandedButtons[`learn-${index}`] ? 'hidden' : 'block'}`}>
                         Learn More
-                      </Button>
-                    </a>
+                      </div>
+                      <div className={`transition-all duration-300 ${expandedButtons[`learn-${index}`] ? 'flex items-center gap-2' : 'hidden'}`}>
+                        <span className="text-sm">+1(416) 717-2750</span>
+                        <div
+                          className="cursor-pointer hover:bg-white hover:text-luxury-gold rounded-full p-1 transition-colors duration-200"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            copyToClipboard("+1(416) 717-2750")
+                          }}
+                          title="Copy number"
+                        >
+                          <Copy size={16} />
+                        </div>
+                        {copiedText === "+1(416) 717-2750" && (
+                          <span className="text-xs text-white/80 ml-1">Copied!</span>
+                        )}
+                      </div>
+                    </Button>
                   </div>
                 </div>
               </ScrollReveal>
@@ -377,11 +591,37 @@ export default function ConstructionPage() {
                             </div>
                           ))}
                         </div>
-                        <a href="tel:+14167172750">
-                          <Button size="lg" className="btn-luxury">
+                        <Button 
+                          size="lg" 
+                          className={`btn-luxury transition-all duration-300 relative overflow-hidden ${
+                            expandedButtons[`project-${index}`] ? 'bg-luxury-gold text-white px-6' : ''
+                          }`}
+                          onClick={() => handleButtonClick(`project-${index}`)}
+                          style={{
+                            width: expandedButtons[`project-${index}`] ? 'auto' : undefined,
+                            minWidth: expandedButtons[`project-${index}`] ? '200px' : undefined
+                          }}
+                        >
+                          <div className={`transition-all duration-300 ${expandedButtons[`project-${index}`] ? 'hidden' : 'block'}`}>
                             Schedule Consultation
-                          </Button>
-                        </a>
+                          </div>
+                          <div className={`transition-all duration-300 ${expandedButtons[`project-${index}`] ? 'flex items-center gap-2' : 'hidden'}`}>
+                            <span className="text-sm">+1(416) 717-2750</span>
+                            <div
+                              className="cursor-pointer hover:bg-white hover:text-luxury-gold rounded-full p-1 transition-colors duration-200"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                copyToClipboard("+1(416) 717-2750")
+                              }}
+                              title="Copy number"
+                            >
+                              <Copy size={16} />
+                            </div>
+                            {copiedText === "+1(416) 717-2750" && (
+                              <span className="text-xs text-white/80 ml-1">Copied!</span>
+                            )}
+                          </div>
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -415,16 +655,68 @@ export default function ConstructionPage() {
                 <h3 className="text-xl font-bold mb-3">CALL NOW</h3>
                 <p className="text-gray-600 mb-6">Speak directly with our pool experts</p>
                 <div className="space-y-3">
-                  <a href="tel:+14167172750" className="w-full block">
-                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
+                  <Button 
+                    className={`w-full bg-green-600 hover:bg-green-700 text-white btn-luxury transition-all duration-300 relative overflow-hidden ${
+                      expandedButtons['call-ruel'] ? 'bg-luxury-gold' : ''
+                    }`}
+                    size="lg"
+                    onClick={() => handleButtonClick('call-ruel')}
+                    style={{
+                      width: expandedButtons['call-ruel'] ? 'auto' : undefined,
+                      minWidth: expandedButtons['call-ruel'] ? '200px' : undefined
+                    }}
+                  >
+                    <div className={`transition-all duration-300 ${expandedButtons['call-ruel'] ? 'hidden' : 'block'}`}>
                       Call Ruel
-                    </Button>
-                  </a>
-                  <a href="tel:+14169061960" className="w-full block">
-                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
+                    </div>
+                    <div className={`transition-all duration-300 ${expandedButtons['call-ruel'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                      <span className="text-sm">+1(416) 717-2750</span>
+                      <div
+                        className="cursor-pointer hover:bg-white hover:text-green-600 rounded-full p-1 transition-colors duration-200"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 717-2750")
+                        }}
+                        title="Copy number"
+                      >
+                        <Copy size={16} />
+                      </div>
+                      {copiedText === "+1(416) 717-2750" && (
+                        <span className="text-xs text-white/80 ml-1">Copied!</span>
+                      )}
+                    </div>
+                  </Button>
+                  <Button 
+                    className={`w-full bg-green-600 hover:bg-green-700 text-white btn-luxury transition-all duration-300 relative overflow-hidden ${
+                      expandedButtons['call-kevin'] ? 'bg-luxury-gold' : ''
+                    }`}
+                    size="lg"
+                    onClick={() => handleButtonClick('call-kevin')}
+                    style={{
+                      width: expandedButtons['call-kevin'] ? 'auto' : undefined,
+                      minWidth: expandedButtons['call-kevin'] ? '200px' : undefined
+                    }}
+                  >
+                    <div className={`transition-all duration-300 ${expandedButtons['call-kevin'] ? 'hidden' : 'block'}`}>
                       Call Kevin
-                    </Button>
-                  </a>
+                    </div>
+                    <div className={`transition-all duration-300 ${expandedButtons['call-kevin'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                      <span className="text-sm">+1(416) 906-1960</span>
+                      <div
+                        className="cursor-pointer hover:bg-white hover:text-green-600 rounded-full p-1 transition-colors duration-200"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 906-1960")
+                        }}
+                        title="Copy number"
+                      >
+                        <Copy size={16} />
+                      </div>
+                      {copiedText === "+1(416) 906-1960" && (
+                        <span className="text-xs text-white/80 ml-1">Copied!</span>
+                      )}
+                    </div>
+                  </Button>
                 </div>
               </div>
 
@@ -436,16 +728,68 @@ export default function ConstructionPage() {
                 <h3 className="text-xl font-bold mb-3">TEXT US</h3>
                 <p className="text-gray-600 mb-6">Quick questions? Send us a message</p>
                 <div className="space-y-3">
-                  <a href="sms:+14167172750" className="w-full block">
-                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
+                  <Button 
+                    className={`w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury transition-all duration-300 relative overflow-hidden ${
+                      expandedButtons['text-ruel'] ? 'bg-luxury-gold' : ''
+                    }`}
+                    size="lg"
+                    onClick={() => handleButtonClick('text-ruel')}
+                    style={{
+                      width: expandedButtons['text-ruel'] ? 'auto' : undefined,
+                      minWidth: expandedButtons['text-ruel'] ? '200px' : undefined
+                    }}
+                  >
+                    <div className={`transition-all duration-300 ${expandedButtons['text-ruel'] ? 'hidden' : 'block'}`}>
                       Text Ruel
-                    </Button>
-                  </a>
-                  <a href="sms:+14169061960" className="w-full block">
-                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
+                    </div>
+                    <div className={`transition-all duration-300 ${expandedButtons['text-ruel'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                      <span className="text-sm">+1(416) 717-2750</span>
+                      <div
+                        className="cursor-pointer hover:bg-white hover:text-purple-600 rounded-full p-1 transition-colors duration-200"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 717-2750")
+                        }}
+                        title="Copy number"
+                      >
+                        <Copy size={16} />
+                      </div>
+                      {copiedText === "+1(416) 717-2750" && (
+                        <span className="text-xs text-white/80 ml-1">Copied!</span>
+                      )}
+                    </div>
+                  </Button>
+                  <Button 
+                    className={`w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury transition-all duration-300 relative overflow-hidden ${
+                      expandedButtons['text-kevin'] ? 'bg-luxury-gold' : ''
+                    }`}
+                    size="lg"
+                    onClick={() => handleButtonClick('text-kevin')}
+                    style={{
+                      width: expandedButtons['text-kevin'] ? 'auto' : undefined,
+                      minWidth: expandedButtons['text-kevin'] ? '200px' : undefined
+                    }}
+                  >
+                    <div className={`transition-all duration-300 ${expandedButtons['text-kevin'] ? 'hidden' : 'block'}`}>
                       Text Kevin
-                    </Button>
-                  </a>
+                    </div>
+                    <div className={`transition-all duration-300 ${expandedButtons['text-kevin'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                      <span className="text-sm">+1(416) 906-1960</span>
+                      <div
+                        className="cursor-pointer hover:bg-white hover:text-purple-600 rounded-full p-1 transition-colors duration-200"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 906-1960")
+                        }}
+                        title="Copy number"
+                      >
+                        <Copy size={16} />
+                      </div>
+                      {copiedText === "+1(416) 906-1960" && (
+                        <span className="text-xs text-white/80 ml-1">Copied!</span>
+                      )}
+                    </div>
+                  </Button>
                 </div>
               </div>
             </div>

@@ -2,14 +2,46 @@
 
 import Link from "next/link"
 import { useState, useEffect } from "react"
-import { Menu, X, Phone } from "lucide-react"
+import { usePathname } from "next/navigation"
+import { Menu, X, Phone, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 export function Navigation() {
+  const pathname = usePathname()
   const [visible, setVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [expandedButtons, setExpandedButtons] = useState<{[key: string]: boolean}>({})
+  const [copiedText, setCopiedText] = useState("")
+
+  const handleButtonClick = (buttonId: string) => {
+    // Check if mobile device
+    if (window.innerWidth <= 768) {
+      // Mobile: direct call - use Ruel's number for construction page, Kevin's for others
+      if (pathname === '/construction') {
+        window.location.href = "tel:+14167172750"
+      } else {
+        window.location.href = "tel:+14169061960"
+      }
+    } else {
+      // Desktop: expand button
+      setExpandedButtons(prev => ({
+        ...prev,
+        [buttonId]: !prev[buttonId]
+      }))
+    }
+  }
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedText(text)
+      setTimeout(() => setCopiedText(""), 2000)
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+    }
+  }
 
   useEffect(() => {
     const controlNavbar = () => {
@@ -86,11 +118,37 @@ export function Navigation() {
           </div>
 
           <div className="lg:hidden flex items-center space-x-4">
-            <a href="tel:+14167172750">
-              <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300 text-sm px-4 py-3 min-h-[44px]">
+            <Button 
+              className={`bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300 text-sm px-4 py-3 min-h-[44px] transition-all duration-300 relative overflow-hidden ${
+                expandedButtons['mobile-quote'] ? 'bg-luxury-gold border-luxury-gold text-white' : ''
+              }`}
+              onClick={() => handleButtonClick('mobile-quote')}
+              style={{
+                width: expandedButtons['mobile-quote'] ? 'auto' : undefined,
+                minWidth: expandedButtons['mobile-quote'] ? '200px' : undefined
+              }}
+            >
+              <div className={`transition-all duration-300 ${expandedButtons['mobile-quote'] ? 'hidden' : 'block'}`}>
                 Get Quote
-              </Button>
-            </a>
+              </div>
+              <div className={`transition-all duration-300 ${expandedButtons['mobile-quote'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                <span className="text-sm">{pathname === '/construction' ? '+1(416) 717-2750' : '+1(416) 906-1960'}</span>
+                <div
+                  className="cursor-pointer hover:bg-white hover:text-luxury-gold rounded-full p-1 transition-colors duration-200"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    const phoneNumber = pathname === '/construction' ? '+1(416) 717-2750' : '+1(416) 906-1960'
+                    copyToClipboard(phoneNumber)
+                  }}
+                  title="Copy number"
+                >
+                  <Copy size={16} />
+                </div>
+                {copiedText === (pathname === '/construction' ? '+1(416) 717-2750' : '+1(416) 906-1960') && (
+                  <span className="text-xs text-white/80 ml-1">Copied!</span>
+                )}
+              </div>
+            </Button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-white hover:text-yellow-400 transition-colors"
@@ -100,11 +158,37 @@ export function Navigation() {
           </div>
 
           <div className="hidden lg:block">
-            <a href="tel:+14167172750">
-              <Button className="bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300">
+            <Button 
+              className={`bg-yellow-500 hover:bg-white hover:text-black text-black font-semibold border-2 border-yellow-500 hover:border-gray-300 transition-all duration-300 relative overflow-hidden ${
+                expandedButtons['desktop-quote'] ? 'bg-luxury-gold border-luxury-gold text-white' : ''
+              }`}
+              onClick={() => handleButtonClick('desktop-quote')}
+              style={{
+                width: expandedButtons['desktop-quote'] ? 'auto' : undefined,
+                minWidth: expandedButtons['desktop-quote'] ? '200px' : undefined
+              }}
+            >
+              <div className={`transition-all duration-300 ${expandedButtons['desktop-quote'] ? 'hidden' : 'block'}`}>
                 Get Quote
-              </Button>
-            </a>
+              </div>
+              <div className={`transition-all duration-300 ${expandedButtons['desktop-quote'] ? 'flex items-center gap-2' : 'hidden'}`}>
+                <span className="text-sm">{pathname === '/construction' ? '+1(416) 717-2750' : '+1(416) 906-1960'}</span>
+                <div
+                  className="cursor-pointer hover:bg-white hover:text-luxury-gold rounded-full p-1 transition-colors duration-200"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    const phoneNumber = pathname === '/construction' ? '+1(416) 717-2750' : '+1(416) 906-1960'
+                    copyToClipboard(phoneNumber)
+                  }}
+                  title="Copy number"
+                >
+                  <Copy size={16} />
+                </div>
+                {copiedText === (pathname === '/construction' ? '+1(416) 717-2750' : '+1(416) 906-1960') && (
+                  <span className="text-xs text-white/80 ml-1">Copied!</span>
+                )}
+              </div>
+            </Button>
           </div>
         </div>
 

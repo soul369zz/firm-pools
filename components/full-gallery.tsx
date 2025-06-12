@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { X, ChevronLeft, ChevronRight } from "lucide-react"
+import { X, ChevronLeft, ChevronRight, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
 
@@ -43,6 +43,29 @@ interface FullGalleryProps {
 
 export function FullGallery({ isOpen, onClose }: FullGalleryProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
+  const [isButtonExpanded, setIsButtonExpanded] = useState(false)
+  const [copiedText, setCopiedText] = useState("")
+
+  const handleButtonClick = () => {
+    // Check if mobile device
+    if (window.innerWidth <= 768) {
+      // Mobile: direct call
+      window.location.href = "tel:+14169061960"
+    } else {
+      // Desktop: expand button
+      setIsButtonExpanded(!isButtonExpanded)
+    }
+  }
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedText(text)
+      setTimeout(() => setCopiedText(""), 2000)
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+    }
+  }
 
   if (!isOpen) return null
 
@@ -116,11 +139,36 @@ export function FullGallery({ isOpen, onClose }: FullGalleryProps) {
             <p className="text-gray-300 mb-6">
               Showcasing {galleryImages.length} completed projects across the GTA
             </p>
-            <a href="tel:+14167172750">
-              <Button className="btn-luxury">
+            <Button 
+              className={`btn-luxury transition-all duration-300 relative overflow-hidden ${
+                isButtonExpanded ? 'bg-luxury-gold text-white px-6' : ''
+              }`}
+              onClick={handleButtonClick}
+              style={{
+                width: isButtonExpanded ? 'auto' : undefined,
+                minWidth: isButtonExpanded ? '200px' : undefined
+              }}
+            >
+              <div className={`transition-all duration-300 ${isButtonExpanded ? 'hidden' : 'block'}`}>
                 Get Your Free Quote
-              </Button>
-            </a>
+              </div>
+              <div className={`transition-all duration-300 ${isButtonExpanded ? 'flex items-center gap-2' : 'hidden'}`}>
+                <span className="text-sm">+1(416) 906-1960</span>
+                <div
+                  className="cursor-pointer hover:bg-white hover:text-luxury-gold rounded-full p-1 transition-colors duration-200"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    copyToClipboard("+1(416) 906-1960")
+                  }}
+                  title="Copy number"
+                >
+                  <Copy size={16} />
+                </div>
+                {copiedText === "+1(416) 906-1960" && (
+                  <span className="text-xs text-white/80 ml-1">Copied!</span>
+                )}
+              </div>
+            </Button>
           </div>
         </ScrollReveal>
       </div>

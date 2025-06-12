@@ -5,7 +5,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import OptimizedImage from "@/components/optimized-image"
-import { Plus, X, Wrench, Hammer, Paintbrush, Settings, Calendar } from "lucide-react"
+import { Plus, X, Wrench, Hammer, Paintbrush, Settings, Calendar, Copy } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
@@ -60,6 +60,29 @@ export function ServicesSection() {
   const [activeService, setActiveService] = useState<string>("maintenance")
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [displayedImage, setDisplayedImage] = useState<string>("/services/maintenance-services.jpg")
+  const [isButtonExpanded, setIsButtonExpanded] = useState(false)
+  const [copiedText, setCopiedText] = useState("")
+
+  const handleButtonClick = () => {
+    // Check if mobile device
+    if (window.innerWidth <= 768) {
+      // Mobile: direct call
+      window.location.href = "tel:+14169061960"
+    } else {
+      // Desktop: expand button
+      setIsButtonExpanded(!isButtonExpanded)
+    }
+  }
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedText(text)
+      setTimeout(() => setCopiedText(""), 2000)
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+    }
+  }
 
   const handleServiceClick = (serviceId: string) => {
     if (serviceId === activeService) {
@@ -228,11 +251,33 @@ export function ServicesSection() {
         {/* Call to Action Button */}
         <ScrollReveal animation="fadeInUp" delay={800}>
           <div className="text-center mt-8 sm:mt-10 md:mt-12">
-            <a href="tel:+14167172750">
-              <Button size="lg" className="btn-luxury transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
-                Get Started Today
-              </Button>
-            </a>
+            <Button 
+              size="lg" 
+              className={`btn-luxury transform hover:scale-105 transition-all duration-300 hover:shadow-2xl ${
+                isButtonExpanded ? 'bg-luxury-gold text-white' : ''
+              }`}
+              onClick={handleButtonClick}
+            >
+                              {isButtonExpanded ? (
+                  <div className="flex items-center space-x-3">
+                    <span>+1(416) 906-1960</span>
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        copyToClipboard("+1(416) 906-1960")
+                      }}
+                      className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                    >
+                      <Copy className="w-4 h-4" />
+                      <span className="text-sm">
+                        {copiedText === "+1(416) 906-1960" ? "Copied!" : "Copy"}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  "Get Started Today"
+                )}
+            </Button>
           </div>
         </ScrollReveal>
       </div>

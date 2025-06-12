@@ -1,10 +1,49 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Phone, MessageCircle } from "lucide-react"
+import { Phone, MessageCircle, Copy } from "lucide-react"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { useState } from "react"
 
 export function FinalCtaSection() {
+  const [expandedButtons, setExpandedButtons] = useState<{[key: string]: boolean}>({})
+  const [copiedText, setCopiedText] = useState("")
+
+  const handleButtonClick = (buttonId: string) => {
+    // Check if mobile device
+    if (window.innerWidth <= 768) {
+      // Mobile: direct call/text - use Ruel's number for Ruel buttons
+      if (buttonId.includes('call')) {
+        if (buttonId.includes('Ruel')) {
+          window.location.href = "tel:+14167172750"
+        } else {
+          window.location.href = "tel:+14169061960"
+        }
+      } else if (buttonId.includes('text')) {
+        if (buttonId.includes('Ruel')) {
+          window.location.href = "sms:+14167172750"
+        } else {
+          window.location.href = "sms:+14169061960"
+        }
+      }
+    } else {
+      // Desktop: expand button
+      setExpandedButtons(prev => ({
+        ...prev,
+        [buttonId]: !prev[buttonId]
+      }))
+    }
+  }
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedText(text)
+      setTimeout(() => setCopiedText(""), 2000)
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+    }
+  }
   return (
     <section className="mobile-section bg-gradient-to-br from-blue-50 to-gray-50">
       <div className="mobile-container max-w-4xl">
@@ -25,16 +64,60 @@ export function FinalCtaSection() {
               <h3 className="text-xl font-bold mb-3">CALL NOW</h3>
               <p className="text-gray-600 mb-6">Speak directly with our pool experts</p>
               <div className="space-y-3">
-                <a href="tel:+14167172750" className="w-full block">
-                  <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
-                    Call Ruel
-                  </Button>
-                </a>
-                <a href="tel:+14169061960" className="w-full block">
-                  <Button className="w-full bg-green-600 hover:bg-green-700 text-white btn-luxury" size="lg">
-                    Call Kevin
-                  </Button>
-                </a>
+                <Button 
+                  className={`w-full bg-green-600 hover:bg-green-700 text-white btn-luxury transition-all duration-300 ${
+                    expandedButtons.callRuel ? 'bg-luxury-gold hover:bg-luxury-gold/90' : ''
+                  }`} 
+                  size="lg"
+                  onClick={() => handleButtonClick('callRuel')}
+                >
+                  {expandedButtons.callRuel ? (
+                    <div className="flex items-center justify-between w-full">
+                      <span>+1(416) 717-2750</span>
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 717-2750")
+                        }}
+                        className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                      >
+                        <Copy className="w-4 h-4" />
+                        <span className="text-sm">
+                          {copiedText === "+1(416) 717-2750" ? "Copied!" : "Copy"}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    "Call Ruel"
+                  )}
+                </Button>
+                <Button 
+                  className={`w-full bg-green-600 hover:bg-green-700 text-white btn-luxury transition-all duration-300 ${
+                    expandedButtons.callKevin ? 'bg-luxury-gold hover:bg-luxury-gold/90' : ''
+                  }`} 
+                  size="lg"
+                  onClick={() => handleButtonClick('callKevin')}
+                >
+                  {expandedButtons.callKevin ? (
+                    <div className="flex items-center justify-between w-full">
+                      <span>+1(416) 906-1960</span>
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 906-1960")
+                        }}
+                        className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                      >
+                        <Copy className="w-4 h-4" />
+                        <span className="text-sm">
+                          {copiedText === "+1(416) 906-1960" ? "Copied!" : "Copy"}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    "Call Kevin"
+                  )}
+                </Button>
               </div>
             </div>
 
@@ -46,16 +129,60 @@ export function FinalCtaSection() {
               <h3 className="text-xl font-bold mb-3">TEXT US</h3>
               <p className="text-gray-600 mb-6">Quick questions? Send us a message</p>
               <div className="space-y-3">
-                <a href="sms:+14167172750" className="w-full block">
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
-                    Text Ruel
-                  </Button>
-                </a>
-                <a href="sms:+14169061960" className="w-full block">
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury" size="lg">
-                    Text Kevin
-                  </Button>
-                </a>
+                <Button 
+                  className={`w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury transition-all duration-300 ${
+                    expandedButtons.textRuel ? 'bg-luxury-gold hover:bg-luxury-gold/90' : ''
+                  }`} 
+                  size="lg"
+                  onClick={() => handleButtonClick('textRuel')}
+                >
+                  {expandedButtons.textRuel ? (
+                    <div className="flex items-center justify-between w-full">
+                      <span>+1(416) 717-2750</span>
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 717-2750")
+                        }}
+                        className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                      >
+                        <Copy className="w-4 h-4" />
+                        <span className="text-sm">
+                          {copiedText === "+1(416) 717-2750" ? "Copied!" : "Copy"}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    "Text Ruel"
+                  )}
+                </Button>
+                <Button 
+                  className={`w-full bg-purple-600 hover:bg-purple-700 text-white btn-luxury transition-all duration-300 ${
+                    expandedButtons.textKevin ? 'bg-luxury-gold hover:bg-luxury-gold/90' : ''
+                  }`} 
+                  size="lg"
+                  onClick={() => handleButtonClick('textKevin')}
+                >
+                  {expandedButtons.textKevin ? (
+                    <div className="flex items-center justify-between w-full">
+                      <span>+1(416) 906-1960</span>
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyToClipboard("+1(416) 906-1960")
+                        }}
+                        className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                      >
+                        <Copy className="w-4 h-4" />
+                        <span className="text-sm">
+                          {copiedText === "+1(416) 906-1960" ? "Copied!" : "Copy"}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    "Text Kevin"
+                  )}
+                </Button>
               </div>
             </div>
           </div>

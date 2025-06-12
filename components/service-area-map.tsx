@@ -1,17 +1,46 @@
 "use client"
 
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Check, MapPin, Search, ChevronDown } from "lucide-react"
+import { Check, MapPin, Search, ChevronDown, Copy } from "lucide-react"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { cn } from "@/lib/utils"
 
 export function ServiceAreaMap() {
+  const pathname = usePathname()
   const [postalCode, setPostalCode] = useState("")
   const [isChecking, setIsChecking] = useState(false)
   const [serviceResult, setServiceResult] = useState<string | null>(null)
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
+  const [isButtonExpanded, setIsButtonExpanded] = useState(false)
+  const [copiedText, setCopiedText] = useState("")
+
+  const handleButtonClick = () => {
+    // Check if mobile device
+    if (window.innerWidth <= 768) {
+      // Mobile: direct call - use Ruel's number for construction page, Kevin's for others
+      if (pathname === '/construction') {
+        window.location.href = "tel:+14167172750"
+      } else {
+        window.location.href = "tel:+14169061960"
+      }
+    } else {
+      // Desktop: expand button
+      setIsButtonExpanded(!isButtonExpanded)
+    }
+  }
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedText(text)
+      setTimeout(() => setCopiedText(""), 2000)
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+    }
+  }
 
   const handlePostalCodeCheck = async () => {
     if (!postalCode.trim()) return
@@ -263,11 +292,34 @@ export function ServiceAreaMap() {
                 <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
                   We're always expanding our service coverage. Contact us to discuss your project.
                 </p>
-                <a href="tel:+14167172750">
-                  <Button variant="outline" className="btn-luxury w-full sm:w-auto">
-                    Contact Us
-                  </Button>
-                </a>
+                <Button 
+                  variant="outline" 
+                  className={`btn-luxury w-full sm:w-auto transition-all duration-300 ${
+                    isButtonExpanded ? 'bg-luxury-gold border-luxury-gold text-white' : ''
+                  }`}
+                  onClick={handleButtonClick}
+                >
+                  {isButtonExpanded ? (
+                    <div className="flex items-center space-x-3">
+                      <span>{pathname === '/construction' ? '+1(416) 717-2750' : '+1(416) 906-1960'}</span>
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          const phoneNumber = pathname === '/construction' ? '+1(416) 717-2750' : '+1(416) 906-1960'
+                          copyToClipboard(phoneNumber)
+                        }}
+                        className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded cursor-pointer hover:bg-white/30 transition-colors"
+                      >
+                        <Copy className="w-4 h-4" />
+                        <span className="text-sm">
+                          {copiedText === (pathname === '/construction' ? '+1(416) 717-2750' : '+1(416) 906-1960') ? "Copied!" : "Copy"}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    "Contact Us"
+                  )}
+                </Button>
               </div>
             </div>
           </ScrollReveal>
