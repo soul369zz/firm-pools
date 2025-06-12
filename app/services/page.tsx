@@ -150,13 +150,13 @@ export default function ServicesPage() {
               {
                 title: "Pool Cleaning",
                 description: "Professional pool cleaning services to keep your water crystal clear and inviting",
-                image: "/services/service 1-pool cleaning.jpeg",
+                image: "/services/pool-cleaning.jpg",
                 features: ["Weekly/Bi-weekly Service", "Debris & Leaf Removal", "Surface Skimming & Vacuuming"],
               },
               {
                 title: "Equipment Repair",
                 description: "Expert repair and maintenance of pumps, filters, heaters, and automation systems",
-                image: "/services/Service 3- Equipment Repair.jpg",
+                image: "/services/equipment-repair.jpg",
                 features: ["Pump & Filter Repair", "Heater Diagnostics", "Automation System Service"],
               },
               {
@@ -168,7 +168,7 @@ export default function ServicesPage() {
               {
                 title: "Maintenance Services",
                 description: "Keep your pool pristine with our maintenance programs",
-                image: "/services/Service 4- Pool Maintenance.jpg",
+                image: "/services/pool-maintenance.jpg",
                 features: ["Weekly Cleaning", "Chemical Balancing", "Equipment Service"],
               },
               {
@@ -180,7 +180,7 @@ export default function ServicesPage() {
               {
                 title: "Pool Opening/Closing",
                 description: "Seasonal pool opening and closing services to protect your investment year-round",
-                image: "/services/Service 2-pool opening:closing.jpg",
+                image: "/services/pool-opening-closing.jpg",
                 features: ["Spring Pool Opening", "Winterization Service", "Equipment Inspection"],
               },
             ].map((service, index) => (
